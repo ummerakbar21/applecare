@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_faq"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="@string/faq"
+         />
+    <item
+        android:id="@+id/action_camera"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="@string/camera"
+         />
+    <item
+        android:id="@+id/action_history"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:title="@string/history"
+         />
+</menu>

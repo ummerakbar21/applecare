@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/image_cpatured_view"
+        android:layout_width="match_parent"
+        android:src="@drawable/apple"
+        android:layout_height="@dimen/nav_drawer_width"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:fitsSystemWindows="true"
+        android:scaleType="fitXY"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="false"
+        android:hint="@string/description"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:id="@+id/description"
+        android:layout_below="@+id/image_cpatured_view"/>
+
+    <ImageButton
+        android:id="@+id/camera_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_camera"
+        android:layout_above="@+id/upload_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/label_height"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/upload_button"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
+        android:background="@drawable/circle_edge_rectangle"
+        android:backgroundTint="@color/colorDeepGreen"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/upload"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

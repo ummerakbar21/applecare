@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/home"
+            android:title="Home"
+            android:checked="false"
+            android:icon="@android:drawable/ic_menu_gallery"
+            />
+        <item
+            android:id="@+id/settings"
+            android:checked="false"
+            android:title="Settings"
+            android:icon="@android:drawable/ic_menu_manage"
+            />
+        <item
+            android:id="@+id/trash"
+            android:title="Trash"
+            android:checked="false"
+            android:icon="@android:drawable/ic_menu_delete"
+            />
+        <item
+            android:id="@+id/logout"
+            android:title="Logout"
+            android:checked="false"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            />
+        <item android:title="@string/sub_menu">
+            <menu>
+                <!--<group
+                    android:id="@+id/nav_main_content"
+                    android:checkableBehavior="single">-->
+                    <item
+                        android:id="@+id/allmail"
+                        android:checked="false"
+                        android:icon="@android:drawable/ic_dialog_email"
+                        android:title="@string/email"/>
+
+                    <item
+                        android:id="@+id/spam"
+                        android:checked="false"
+                        android:icon="@android:drawable/ic_dialog_alert"
+                        android:title="@string/spam"/>
+                <!--</group>-->
+            </menu>
+        </item>
+
+</menu>
