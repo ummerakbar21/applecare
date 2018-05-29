@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import applecare.com.applecare.Activity.DetailActivity;
-import applecare.com.applecare.Main2Activity;
 import applecare.com.applecare.Model.FAQItem;
 import applecare.com.applecare.R;
 

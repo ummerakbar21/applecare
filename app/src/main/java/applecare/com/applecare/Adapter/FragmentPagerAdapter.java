@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import applecare.com.applecare.Fragment.DemoFragment;
+import applecare.com.applecare.Fragment.DataFragment;
 
 /**
  * Created by ummer on 27/5/18.
@@ -18,10 +18,10 @@ public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        Fragment fragment = new DemoFragment();
+        Fragment fragment = new DataFragment();
         Bundle args = new Bundle();
         // Our object is just an integer :-P
-        args.putInt(DemoFragment.ARG_OBJECT,4);
+        args.putInt(DataFragment.ARG_OBJECT,4);
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,6 +33,7 @@ public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "OBJECT " + (position + 1);
+        return "Symptoms " + (position + 1);
     }
+
 }

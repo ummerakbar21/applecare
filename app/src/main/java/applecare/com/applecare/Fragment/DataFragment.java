@@ -14,8 +14,8 @@ import applecare.com.applecare.R;
  * Created by ummer on 27/5/18.
  */
 
-public class  DemoFragment extends Fragment {
-    public static final String ARG_OBJECT = "object";
+public class DataFragment extends Fragment {
+    public static final String ARG_OBJECT = "Symptoms";
 
     @Override
     public View onCreateView(LayoutInflater inflater,
