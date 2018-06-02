@@ -4,7 +4,7 @@
     <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="nav_drawer_width">260dp</dimen>
     <dimen name="button_width">200dp</dimen>
-    <dimen name="edittext_width">300dp</dimen>
+    <dimen name="edittext_width">340dp</dimen>
     <dimen name="label_height">30dp</dimen>
     <dimen name="text_bold">32dp</dimen>
     <dimen name="four">4dp</dimen>

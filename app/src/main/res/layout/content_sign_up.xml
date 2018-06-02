@@ -15,18 +15,21 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:foregroundGravity="center"
 
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/profile_image_height"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:gravity="center"
             android:orientation="vertical">
-
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
             <EditText
                 android:id="@+id/name_edit_text"
                 android:layout_width="@dimen/edittext_width"
@@ -39,7 +42,11 @@
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:hint="@string/name" />
-
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
             <EditText
                 android:id="@+id/email_edit_text"
                 android:layout_width="@dimen/edittext_width"
@@ -52,7 +59,11 @@
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:hint="@string/email" />
-
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
             <EditText
                 android:id="@+id/phone_edit_text"
                 android:layout_width="@dimen/edittext_width"
@@ -67,7 +78,11 @@
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:hint="@string/phone_number" />
-
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
             <EditText
                 android:id="@+id/password_edit_text"
                 android:layout_width="@dimen/edittext_width"
@@ -80,6 +95,12 @@
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:hint="@string/password"
                 android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
             <EditText
                 android:id="@+id/confirm_password_edit_text"
                 android:layout_width="@dimen/edittext_width"
@@ -92,6 +113,58 @@
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:hint="@string/confirm_password"
                 android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/district_text_view"
+                    android:layout_width="@dimen/edittext_width"
+                    android:layout_height="@dimen/button_height"
+                    android:background="@drawable/circle_edge_rectangle"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:hint="@string/district"
+                    />
+            </android.support.design.widget.TextInputLayout>
+           <LinearLayout
+                android:layout_width="@dimen/edittext_width"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+               android:orientation="horizontal"
+              >
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <AutoCompleteTextView
+                        android:layout_width="170dp"
+                        android:layout_height="@dimen/button_height"
+                        android:background="@drawable/circle_edge_rectangle"
+                        android:hint="@string/tehsil"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingStart="@dimen/activity_horizontal_margin" />
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <EditText
+                        android:layout_width="170dp"
+                        android:layout_height="@dimen/button_height"
+                        android:background="@drawable/circle_edge_rectangle"
+                        android:hint="@string/pin"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingStart="@dimen/activity_horizontal_margin" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
             <RadioGroup
                 android:id="@+id/radio_grop"
                 android:layout_width="@dimen/edittext_width"

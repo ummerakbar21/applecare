@@ -22,9 +22,7 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <uses-feature
-            android:name="android.hardware.camera"
-            android:required="true" />
+
 
         <activity
             android:name=".Activity.DetailActivity"
@@ -32,7 +30,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.SplashScreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
@@ -42,5 +39,9 @@
             </intent-filter>
         </activity>
     </application>
-
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 </manifest>

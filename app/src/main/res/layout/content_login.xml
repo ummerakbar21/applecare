@@ -27,7 +27,10 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
 
-
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
             <EditText
                 android:id="@+id/phone_edit_text"
                 android:layout_width="@dimen/edittext_width"
@@ -37,12 +40,16 @@
                 android:layout_below="@+id/login_heading_txtview"
                 android:inputType="phone"
                 android:maxLength="@integer/ten"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/default_text"
+                android:paddingLeft="@dimen/default_text"
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:hint="@string/phone_number" />
-
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
             <EditText
                 android:id="@+id/password_edit_text"
                 android:layout_width="@dimen/edittext_width"
@@ -52,9 +59,10 @@
                 android:hint="@string/password"
                 android:layout_height="@dimen/button_height"
                 android:background="@drawable/circle_edge_rectangle"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/default_text"
+                android:paddingLeft="@dimen/default_text"
                 android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
             <RadioGroup
                 android:id="@+id/radio_grop"
                 android:layout_width="@dimen/edittext_width"
