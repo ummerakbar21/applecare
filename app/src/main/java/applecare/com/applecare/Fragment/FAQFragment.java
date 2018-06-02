@@ -20,7 +20,7 @@ import applecare.com.applecare.R;
  */
 
 public class FAQFragment extends Fragment {
-
+    public static List<FAQItem> faqItems;
     private RecyclerView faqRecyclerView;
     private FAQRecyclerViewAdapter faqRecyclerViewAdapter;
     public FAQFragment(){
@@ -38,25 +38,18 @@ public class FAQFragment extends Fragment {
 
     private List<FAQItem> getFaqList() {
 
-        List<FAQItem> allItems = new ArrayList<FAQItem>();
-        allItems.add(new FAQItem("United States"));
-        allItems.add(new FAQItem("Canada"));
-        allItems.add(new FAQItem("United Kingdom"));
-        allItems.add(new FAQItem("Germany"));
-        allItems.add(new FAQItem("Sweden"));
-        allItems.add(new FAQItem("United Kingdom"));
-        allItems.add(new FAQItem("Germany"));
-        allItems.add(new FAQItem("Sweden"));
-        allItems.add(new FAQItem("United States"));
-        allItems.add(new FAQItem("Canada"));
-        allItems.add(new FAQItem("United Kingdom"));
-        allItems.add(new FAQItem("Germany"));
-        allItems.add(new FAQItem("Sweden"));
-        allItems.add(new FAQItem("United Kingdom"));
-        allItems.add(new FAQItem("Germany"));
-        allItems.add(new FAQItem("Sweden"));
+         faqItems = new ArrayList<FAQItem>();
+        faqItems.add(new FAQItem(1,"Scab","Throughout the season",this.getResources().getDrawable(R.drawable.scab)));
+        faqItems.add(new FAQItem(2,"Alternaria leaf spot","Late spring and early summer",this.getResources().getDrawable(R.drawable.alternaria_leaf_spot)));
+        faqItems.add(new FAQItem(3,"Marsonina leaf blotch","Summer",this.getResources().getDrawable(R.drawable.marsonian)));
+        faqItems.add(new FAQItem(4,"Powdery mildew","When buds develop into new leaves and shoots",this.getResources().getDrawable(R.drawable.powdrew_mildew)));
+        faqItems.add(new FAQItem(5,"Sooty blotch and Flyspeck","Late spring",this.getResources().getDrawable(R.drawable.apples_flyspeck_sooty_blotch)));
+        faqItems.add(new FAQItem(6,"Black rot","Early spring",this.getResources().getDrawable(R.drawable.black_rot)));
+        faqItems.add(new FAQItem(7,"Core rot","Spring",this.getResources().getDrawable(R.drawable.core_rot)));
+        faqItems.add(new FAQItem(8,"Collar Rot","Any time",this.getResources().getDrawable(R.drawable.collar_rot)));
 
-        return allItems;
+
+        return faqItems;
     }
 
 

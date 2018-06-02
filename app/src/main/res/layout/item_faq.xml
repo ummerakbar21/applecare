@@ -7,12 +7,13 @@
     android:gravity="center"
     android:layout_margin="@dimen/padding_margin">
     <ImageView
+        android:id="@+id/faq_image_view"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/list_item_height"
         android:layout_margin="@dimen/four"
         android:background="@drawable/rectangle_white"
         android:fitsSystemWindows="true"
-        android:scaleType="center"
+        android:scaleType="fitXY"
         android:src="@drawable/apple"
        />
     <TextView
@@ -22,9 +23,9 @@
         android:background="@android:color/darker_gray"
         android:drawableEnd="@drawable/circle_arrow"
         android:drawableRight="@drawable/circle_arrow"
+        android:singleLine="true"
         android:paddingEnd="@dimen/four"
         android:paddingRight="@dimen/four"
-        android:text="nvnjkcnvx"
         android:gravity="center"
         android:textSize="@dimen/default_text"
         android:textColor="@android:color/white"

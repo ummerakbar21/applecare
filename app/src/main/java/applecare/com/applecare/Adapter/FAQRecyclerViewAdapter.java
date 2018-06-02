@@ -34,14 +34,15 @@ public class FAQRecyclerViewAdapter extends RecyclerView.Adapter<FAQRecyclerView
     }
 
     @Override
-    public void onBindViewHolder(FAQRecyclerViewHolder holder, int position) {
-        final FAQItem current = data.get(position);
-        holder.title.setText(current.getTitle());
+    public void onBindViewHolder(FAQRecyclerViewHolder holder, final int position) {
+        final FAQItem item = data.get(position);
+        holder.title.setText(item.getDiseaseName());
+        holder.faqImageView.setImageDrawable(item.getDrawable());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent detailActivityIntent=new Intent(view.getContext(), DetailActivity.class);
-                detailActivityIntent.putExtra("title",current.getTitle());
+                detailActivityIntent.putExtra("pos",position);
                 view.getContext().startActivity(detailActivityIntent);
             }
         });
