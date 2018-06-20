@@ -6,6 +6,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_applecare"
         android:label="@string/app_name"
+        android:name=".Activity.MyApplication"
         android:roundIcon="@mipmap/ic_applecare"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

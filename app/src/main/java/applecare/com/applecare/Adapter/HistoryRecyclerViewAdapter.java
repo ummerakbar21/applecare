@@ -37,14 +37,15 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     public void onBindViewHolder(HistoryRecyclerViewHolder holder, int position) {
         final HistoryItem current = data.get(position);
         holder.title.setText(current.getTitle());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        // temporary disable
+       /* holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent detailActivityIntent=new Intent(view.getContext(), DetailActivity.class);
                 detailActivityIntent.putExtra("title",current.getTitle());
                 view.getContext().startActivity(detailActivityIntent);
             }
-        });
+        });*/
     }
 
 

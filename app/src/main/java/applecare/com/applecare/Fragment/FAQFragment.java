@@ -39,14 +39,14 @@ public class FAQFragment extends Fragment {
     private List<FAQItem> getFaqList() {
 
          faqItems = new ArrayList<FAQItem>();
-        faqItems.add(new FAQItem(1,"Scab","Throughout the season",this.getResources().getDrawable(R.drawable.scab)));
-        faqItems.add(new FAQItem(2,"Alternaria leaf spot","Late spring and early summer",this.getResources().getDrawable(R.drawable.alternaria_leaf_spot)));
-        faqItems.add(new FAQItem(3,"Marsonina leaf blotch","Summer",this.getResources().getDrawable(R.drawable.marsonian)));
-        faqItems.add(new FAQItem(4,"Powdery mildew","When buds develop into new leaves and shoots",this.getResources().getDrawable(R.drawable.powdrew_mildew)));
-        faqItems.add(new FAQItem(5,"Sooty blotch and Flyspeck","Late spring",this.getResources().getDrawable(R.drawable.apples_flyspeck_sooty_blotch)));
-        faqItems.add(new FAQItem(6,"Black rot","Early spring",this.getResources().getDrawable(R.drawable.black_rot)));
-        faqItems.add(new FAQItem(7,"Core rot","Spring",this.getResources().getDrawable(R.drawable.core_rot)));
-        faqItems.add(new FAQItem(8,"Collar Rot","Any time",this.getResources().getDrawable(R.drawable.collar_rot)));
+        faqItems.add(new FAQItem(1,"Scab","Throughout the season","scab", "scab"));
+        faqItems.add(new FAQItem(2,"Alternaria leaf spot","Late spring and early summer","alternaria_leaf_spot", "alternaria_leaf_spot"));
+        faqItems.add(new FAQItem(3,"Marsonina leaf blotch","Summer","marsonian", "marsonina_leaf_blotch"));
+        faqItems.add(new FAQItem(4,"Powdery mildew","When buds develop into new leaves and shoots","powdrew_mildew", "powdery_mildew"));
+        faqItems.add(new FAQItem(5,"Sooty blotch and Flyspeck","Late spring","apples_flyspeck_sooty_blotch", "sooty_blotch_lyspeck"));
+        faqItems.add(new FAQItem(6,"Black rot","Early spring","black_rot", "black_rot"));
+        faqItems.add(new FAQItem(7,"Core rot","Spring","core_rot","core_rot"));
+        faqItems.add(new FAQItem(8,"Collar Rot","Any time","collar_rot", "collar_rot"));
 
 
         return faqItems;

@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import applecare.com.applecare.Adapter.FragmentPagerAdapter;
 import applecare.com.applecare.Model.FAQItem;
 import applecare.com.applecare.R;
+import applecare.com.applecare.Utils.Utilities;
 
-import static applecare.com.applecare.Fragment.FAQFragment.faqItems;
 
 public class DetailActivity extends AppCompatActivity {
     FragmentPagerAdapter mPagerAdapter;
@@ -27,13 +27,14 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ImageView imageView=(ImageView) findViewById(R.id.htab_header);
         int position=getIntent().getIntExtra("pos",0);
-        setTitle(faqItems.get(position).getDiseaseName());
-        imageView.setImageDrawable(faqItems.get(position).getDrawable());
+        FAQItem selectedItem = (FAQItem) getIntent().getSerializableExtra("item");
+        setTitle(selectedItem.getDiseaseName());
+        imageView.setImageDrawable(Utilities.getImageFromDrawable(this,selectedItem.getDrawable()));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mPagerAdapter =
                 new FragmentPagerAdapter(
-                        getSupportFragmentManager());
+                        getSupportFragmentManager(),selectedItem);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager.setAdapter(mPagerAdapter);

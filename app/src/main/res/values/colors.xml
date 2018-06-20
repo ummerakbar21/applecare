@@ -5,7 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorGreen">#009000</color>
     <color name="colorDeepGreen">#006000</color>
-    <color name="colorblackGreen">#004000</color>
+   <!-- <color name="colorblackGreen">#004000</color>-->
+    <color name="colorblackGreen">#668c66</color>
+    <color name="textview_textcolor">#58585b</color>
 
     <color name="black_overlay">#66000000</color>
 

@@ -6,14 +6,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import applecare.com.applecare.Fragment.DataFragment;
+import applecare.com.applecare.Model.FAQItem;
 
 /**
  * Created by ummer on 27/5/18.
  */
 
 public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
-    public FragmentPagerAdapter(FragmentManager fm) {
+    FAQItem selectedItem;
+    public FragmentPagerAdapter(FragmentManager fm, FAQItem selectedItem) {
         super(fm);
+        this.selectedItem= selectedItem;
+
     }
 
     @Override
@@ -22,6 +26,8 @@ public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
         Bundle args = new Bundle();
         // Our object is just an integer :-P
         args.putInt(DataFragment.ARG_OBJECT,4);
+        args.putSerializable("selectedItem",selectedItem);
+        args.putString("tabSelected",tabSelected(i));
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,7 +39,29 @@ public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "Symptoms " + (position + 1);
+        String tabName="Symptoms";
+        switch (position){
+            case 1:
+                tabName ="Recommendation";
+                break;
+            case 2:
+                tabName= "Gallery";
+                break;
+        }
+        return tabName;
     }
+    private String tabSelected( int position){
+        String tabName="symptoms";
+        switch (position){
+            case 1:
+                tabName ="recommendation";
+                break;
+            case 2:
+                tabName= "gallery";
+                break;
+        }
+        return tabName;
+    }
+
 
 }

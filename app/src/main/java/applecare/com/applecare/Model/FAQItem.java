@@ -15,21 +15,23 @@ public class FAQItem implements Serializable{
     private String prevalenceTime;
     private List<Symptom> symptoms;
     private List<Recommendation> recommendations;
-    private Drawable drawable;
+    private String drawable;
+    private  String localName;
 
-    public FAQItem(Integer faqId,String diseaseName,String prevalenceTime,Drawable drawable) {
+    public FAQItem(Integer faqId, String diseaseName, String prevalenceTime, String drawable, String localName) {
         this.faqId=faqId;
         this.diseaseName=diseaseName;
         this.prevalenceTime=prevalenceTime;
         this.drawable=drawable;
+        this.localName = localName;
     }
 
 
-    public Drawable getDrawable() {
+    public String getDrawable() {
         return drawable;
     }
 
-    public void setDrawable(Drawable drawable) {
+    public void setDrawable(String drawable) {
         this.drawable = drawable;
     }
 
@@ -71,5 +73,13 @@ public class FAQItem implements Serializable{
 
     public void setRecommendations(List<Recommendation> recommendations) {
         this.recommendations = recommendations;
+    }
+
+    public String getLocalName() {
+        return localName;
+    }
+
+    public void setLocalName(String localName) {
+        this.localName = localName;
     }
 }

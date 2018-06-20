@@ -18,10 +18,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/item_tile_view"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        <org.sufficientlysecure.htmltextview.HtmlTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Body"
+            android:layout_marginBottom="5sp"
+            android:layout_marginTop="5sp"
+            android:lineSpacingMultiplier="1.1"
+            android:id="@+id/body_view"
+            android:gravity="center"
+            android:text="this is the dummy body text lorem ipsum dolor amet "
+            />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

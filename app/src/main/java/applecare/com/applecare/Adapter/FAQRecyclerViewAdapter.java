@@ -12,6 +12,7 @@ import java.util.List;
 import applecare.com.applecare.Activity.DetailActivity;
 import applecare.com.applecare.Model.FAQItem;
 import applecare.com.applecare.R;
+import applecare.com.applecare.Utils.Utilities;
 
 /**
  * Created by shabir on 03-03-2018.
@@ -35,14 +36,15 @@ public class FAQRecyclerViewAdapter extends RecyclerView.Adapter<FAQRecyclerView
 
     @Override
     public void onBindViewHolder(FAQRecyclerViewHolder holder, final int position) {
-        final FAQItem item = data.get(position);
+        FAQItem item = data.get(position);
         holder.title.setText(item.getDiseaseName());
-        holder.faqImageView.setImageDrawable(item.getDrawable());
+        holder.faqImageView.setImageDrawable(Utilities.getImageFromDrawable(context,item.getDrawable()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent detailActivityIntent=new Intent(view.getContext(), DetailActivity.class);
                 detailActivityIntent.putExtra("pos",position);
+                detailActivityIntent.putExtra("item",data.get(position));
                 view.getContext().startActivity(detailActivityIntent);
             }
         });

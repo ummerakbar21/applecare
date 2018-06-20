@@ -2,13 +2,16 @@ package applecare.com.applecare.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.sufficientlysecure.htmltextview.HtmlTextView;
+
+import applecare.com.applecare.Model.FAQItem;
 import applecare.com.applecare.R;
+import applecare.com.applecare.Utils.Utilities;
 
 /**
  * Created by ummer on 27/5/18.
@@ -16,6 +19,7 @@ import applecare.com.applecare.R;
 
 public class DataFragment extends Fragment {
     public static final String ARG_OBJECT = "Symptoms";
+    HtmlTextView bodyView;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -26,8 +30,19 @@ public class DataFragment extends Fragment {
                 R.layout.content_detail, container, false);
 
         Bundle args = getArguments();
+        final FAQItem selectedItem = (FAQItem)args.getSerializable("selectedItem");
+        String tabSelected= args.getString("tabSelected");
         ((TextView) rootView.findViewById(R.id.item_tile_view)).setText(
                 Integer.toString(args.getInt(ARG_OBJECT)));
+        bodyView = (HtmlTextView) rootView.findViewById(R.id.body_view);
+        try {
+            String dataString= getString(Utilities.getStringId(getActivity(),selectedItem.getLocalName(),tabSelected));
+            bodyView.setHtml(dataString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            bodyView.setHtml("No content available");
+
+        }
         return rootView;
     }
 }
