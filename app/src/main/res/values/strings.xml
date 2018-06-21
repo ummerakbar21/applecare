@@ -207,10 +207,6 @@ Lower 75cm of trunk
     <string name="collar_rot_symptoms">Lower 75cm of trunk</string>
 
 
-
-
-
-
     <string name="scab_recommendation">Choices: Dodine/Difenconazol/ Trifloxystrobin+Tebuconazol /Mancozeb/Captan</string>
 
     <string name="alternaria_leaf_spot_recommendation">Difenconazol/ Flusilazol/ Trifloxystrobin+Tebuconazol / Tebuconazol </string>
@@ -235,20 +231,9 @@ Lower 75cm of trunk
 
 
     <string name="collar_rot_recommendation">-Avoid saturation of soil</string>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="title_activity_history_detail">HistoryDetailActivity</string>
+    <string name="symptoms">Symptoms</string>
+    <string name="recommendtion">Recommendation</string>
 
 
 </resources>

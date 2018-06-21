@@ -41,22 +41,8 @@ public class HistoryFragment extends Fragment {
     private List<HistoryItem> getFaqList() {
 
         List<HistoryItem> allItems = new ArrayList<HistoryItem>();
-        allItems.add(new HistoryItem("Delicous"));
-        allItems.add(new HistoryItem("american"));
-        allItems.add(new HistoryItem("United Kingdom"));
-        allItems.add(new HistoryItem("Germany"));
-        allItems.add(new HistoryItem("Sweden"));
-        allItems.add(new HistoryItem("United Kingdom"));
-        allItems.add(new HistoryItem("Germany"));
-        allItems.add(new HistoryItem("Sweden"));
-        allItems.add(new HistoryItem("United States"));
-        allItems.add(new HistoryItem("Canada"));
-        allItems.add(new HistoryItem("United Kingdom"));
-        allItems.add(new HistoryItem("Germany"));
-        allItems.add(new HistoryItem("Sweden"));
-        allItems.add(new HistoryItem("United Kingdom"));
-        allItems.add(new HistoryItem("Germany"));
-        allItems.add(new HistoryItem("Sweden"));
+        allItems.add(new HistoryItem(1,"Scab","Throughout the season","scab", "scab"));
+
 
         return allItems;
     }

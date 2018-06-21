@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import applecare.com.applecare.Activity.DetailActivity;
+import applecare.com.applecare.Activity.HistoryDetailActivity;
 import applecare.com.applecare.Model.HistoryItem;
 import applecare.com.applecare.R;
+import applecare.com.applecare.Utils.Utilities;
 
 /**
  * Created by shabir on 03-03-2018.
@@ -37,15 +39,16 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     public void onBindViewHolder(HistoryRecyclerViewHolder holder, int position) {
         final HistoryItem current = data.get(position);
         holder.title.setText(current.getTitle());
-        // temporary disable
-       /* holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.imageView.setImageDrawable(Utilities.getImageFromDrawable(context,current.getDrawable()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent detailActivityIntent=new Intent(view.getContext(), DetailActivity.class);
-                detailActivityIntent.putExtra("title",current.getTitle());
-                view.getContext().startActivity(detailActivityIntent);
+                Intent detailHistoryIntent=new Intent(view.getContext(), HistoryDetailActivity.class);
+                detailHistoryIntent.putExtra("title",current.getTitle());
+                detailHistoryIntent.putExtra("item",current);
+                view.getContext().startActivity(detailHistoryIntent);
             }
-        });*/
+        });
     }
 
 
