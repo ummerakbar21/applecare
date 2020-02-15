@@ -27,7 +27,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
@@ -45,8 +45,8 @@
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:hint="@string/phone_number" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
@@ -62,7 +62,7 @@
                 android:paddingStart="@dimen/default_text"
                 android:paddingLeft="@dimen/default_text"
                 android:inputType="textPassword" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
             <RadioGroup
                 android:id="@+id/radio_grop"
                 android:layout_width="@dimen/edittext_width"
@@ -106,7 +106,7 @@
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:visibility="gone" />
 
-            <android.support.v7.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/login_button"
                 android:layout_width="@dimen/button_width"
                 android:layout_gravity="center"

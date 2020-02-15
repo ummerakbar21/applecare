@@ -4,11 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +13,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.IdRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import applecare.com.applecare.R;
 
@@ -69,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener onLogIn = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(mainIntent);
+            finish();
             phoneEditText.setError(null);
             passwordEditText.setError(null);
             boolean error = false;
@@ -86,9 +89,9 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = userTypeSharedPreferences.edit();
                 editor.putBoolean("login", true);
                 editor.commit();
-                Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(mainIntent);
-                finish();
+                //Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+                //startActivity(mainIntent);
+                //finish();
             } else if (!error) {
                 Toast.makeText(LoginActivity.this, "Wrong phone_number/password", Toast.LENGTH_SHORT).show();
             }
