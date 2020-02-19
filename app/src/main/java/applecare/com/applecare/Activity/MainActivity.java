@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder(); StrictMode.setVmPolicy(builder.build());
 
         userTypeSharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        if(userTypeSharedPreferences.getString("type","").equalsIgnoreCase(getResources().getString(R.string.farmer))){
+        if(userTypeSharedPreferences.getString("type","farmer").equalsIgnoreCase(getResources().getString(R.string.farmer))){
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_farmer);
         }else if(userTypeSharedPreferences.getString("type","").equalsIgnoreCase(getResources().getString(R.string.expert))) {
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_expert);

@@ -70,8 +70,10 @@ public class SignUpActivity extends AppCompatActivity {
          @Override
          public void onClick(View view) {
              final SharedPreferences.Editor editor = userTypeSharedPreferences.edit();
-
-             nameEditText.setError(null);
+             Intent mainIntent = new Intent(view.getContext(), MainActivity.class);
+             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+             startActivity(mainIntent);
+      /*       nameEditText.setError(null);
              emailEditText.setError(null);
              phoneEditText.setError(null);
              passwordEditText.setError(null);
@@ -119,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
                  Intent mainIntent = new Intent(view.getContext(), MainActivity.class);
                  mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                  startActivity(mainIntent);
-             }
+             }*/
          }
      };
 

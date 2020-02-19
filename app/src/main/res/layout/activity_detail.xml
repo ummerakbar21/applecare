@@ -41,7 +41,7 @@
                 android:background="@android:color/black"
                 android:fitsSystemWindows="true"/>
 
-            <androidx.appcompact.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -64,7 +64,7 @@
     </com.google.android.material.appbar.AppBarLayout>>
 
 
-    <androidx.core.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"
