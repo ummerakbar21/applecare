@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#109ba6</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorGreen">#009000</color>
+    <color name="colorGreen">#6bc3ca</color>
     <color name="colorDeepGreen">#006000</color>
    <!-- <color name="colorblackGreen">#004000</color>-->
     <color name="colorblackGreen">#668c66</color>
     <color name="textview_textcolor">#58585b</color>
 
     <color name="black_overlay">#66000000</color>
+
 
 </resources>
