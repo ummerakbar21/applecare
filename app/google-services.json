@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "456240910811",
+    "firebase_url": "https://applecare-4edea.firebaseio.com",
+    "project_id": "applecare-4edea",
+    "storage_bucket": "applecare-4edea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456240910811:android:83e27e4db1bf92345457fe",
+        "android_client_info": {
+          "package_name": "applecare.com.applecare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456240910811-3v520q9pegjnsh5j1r0opm6fpa9ron24.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtr0TKfuRGzdG4eDe8V1miJNMcKGlZi94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456240910811-3v520q9pegjnsh5j1r0opm6fpa9ron24.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
