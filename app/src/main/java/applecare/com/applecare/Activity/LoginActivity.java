@@ -21,8 +21,6 @@ import androidx.appcompat.widget.Toolbar;
 import applecare.com.applecare.R;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText userNameEditText;
-    EditText passwordEditText;
 
 
     @Override

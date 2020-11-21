@@ -55,8 +55,8 @@
                 android:id="@+id/login_details_view"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:layout_margin="36dp"
-                android:layout_marginBottom="6dp"
+                android:layout_margin="8dp"
+
                 >
             </include>
         </androidx.cardview.widget.CardView>
