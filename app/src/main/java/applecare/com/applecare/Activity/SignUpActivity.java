@@ -160,7 +160,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             SignUpUser signUpUser = new SignUpUser(email,name,password,district);
-                            databaseReference.child(email).setValue(signUpUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            databaseReference.child(mAuth.getUid()).setValue(signUpUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                   //  waitingDialog.dismiss();
