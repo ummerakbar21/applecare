@@ -20,7 +20,7 @@ public class DetailActivity extends AppCompatActivity {
     FragmentPagerAdapter mPagerAdapter;
     ViewPager mViewPager;
     ImageView imageView;
-    ImageView test
+    //ImageView test
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
