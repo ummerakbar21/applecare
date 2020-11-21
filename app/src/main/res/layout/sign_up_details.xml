@@ -145,7 +145,7 @@
             app:layout_constraintBottom_toTopOf="@+id/signUpLink"/>
 
         <TextView
-            android:id="@+id/signUpLink"
+            android:id="@+id/alreadyJoin_signUp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textAlignment="textEnd"
