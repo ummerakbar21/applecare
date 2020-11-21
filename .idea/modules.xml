@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/applecare.iml" filepath="$PROJECT_DIR$/.idea/modules/applecare.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/applecare.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/applecare.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/learning apps.applecare.iml" filepath="$PROJECT_DIR$/.idea/modules/learning apps.applecare.iml" />
     </modules>
   </component>
 </project>
