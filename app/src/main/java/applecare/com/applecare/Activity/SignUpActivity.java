@@ -89,10 +89,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.signup_join_button:
                 signUpUser();
                 break;
+            case R.id.alreadyJoin_signUp:
+                goToLoginActivity();
             default:
                 break;
         }
 
+    }
+
+    private void goToLoginActivity() {
+        startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+        finish();
     }
 
     private void signUpUser() {
