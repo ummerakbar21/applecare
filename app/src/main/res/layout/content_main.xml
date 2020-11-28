@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorblackGreen"
+        android:background="@color/colorPrimary"
         app:itemIconTint="@drawable/faq_selector"
         app:itemTextColor="@drawable/faq_selector"
 

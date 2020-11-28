@@ -37,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import applecare.com.applecare.Model.SignUpUser;
 import applecare.com.applecare.R;
 import applecare.com.applecare.Utils.Constants;
+import dmax.dialog.SpotsDialog;
 
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
@@ -55,6 +56,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private String district;
+    SpotsDialog waitingDialog ;
 
 
     @Override
@@ -65,6 +67,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         mAuth = FirebaseAuth.getInstance();
+        waitingDialog= (SpotsDialog) new SpotsDialog.Builder().setContext(this).setMessage("Registering...").build();
         initializeView();
 
     }
@@ -146,7 +149,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void registerUser() {
-    //    waitingDialog.show();
+        waitingDialog.show();
         Query query = databaseReference.orderByChild("email").equalTo(email);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -159,7 +162,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 //                            mRollNo.setText("");
 //                            mPassword.setText("");
 //                            mConfirmPassword.setText("");
-                 //   waitingDialog.dismiss();
+                    waitingDialog.dismiss();
                     Snackbar.make(rootLayout,"This User is already registered",Snackbar.LENGTH_LONG).show();
                 }
                 else {
@@ -170,10 +173,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             databaseReference.child(mAuth.getUid()).setValue(signUpUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                  //  waitingDialog.dismiss();
-                                //    Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-                             //       startActivity(intent);
-                                 //   finish();
+                                    waitingDialog.dismiss();
+                                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
