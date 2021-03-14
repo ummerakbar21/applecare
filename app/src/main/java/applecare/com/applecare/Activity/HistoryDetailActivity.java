@@ -3,19 +3,17 @@ package applecare.com.applecare.Activity;
 import android.os.Bundle;
 
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.squareup.picasso.Picasso;
+
 import org.sufficientlysecure.htmltextview.HtmlTextView;
 
-import applecare.com.applecare.Model.FAQItem;
-import applecare.com.applecare.Model.HistoryItem;
+import applecare.com.applecare.Fragment.Question;
 import applecare.com.applecare.R;
-import applecare.com.applecare.Utils.Utilities;
 
 public class HistoryDetailActivity extends AppCompatActivity {
 
@@ -28,14 +26,16 @@ public class HistoryDetailActivity extends AppCompatActivity {
         ImageView imageView=(ImageView) findViewById(R.id.htab_header);
         HtmlTextView symptomTextView=(HtmlTextView)findViewById(R.id.symptom_text_view);
         HtmlTextView recomTextView=(HtmlTextView)findViewById(R.id.recommendation_text_view);
-        HistoryItem selectedItem = (HistoryItem) getIntent().getSerializableExtra("item");
+        Question selectedItem = (Question) getIntent().getSerializableExtra("item");
         setTitle(selectedItem.getTitle());
-        imageView.setImageDrawable(Utilities.getImageFromDrawable(this,selectedItem.getDrawable()));
+        Picasso.get().load(selectedItem.getThumbnail()).into(imageView);
+
+        //imageView.setImageDrawable(Utilities.getImageFromDrawable(this,selectedItem.getDrawable()));
         try {
-            String dataString=getString(Utilities.getStringId(getBaseContext(),selectedItem.getLocalName(),"symptoms"));
-            symptomTextView.setHtml(dataString);
-            dataString=getString(Utilities.getStringId(getBaseContext(),selectedItem.getLocalName(),"recommendation"));
-            recomTextView.setHtml(dataString);
+           // String dataString=getString(Utilities.getStringId(getBaseContext(),selectedItem.getLocalName(),"symptoms"));
+            symptomTextView.setHtml("Sympotoms goes here");
+           // dataString=getString(Utilities.getStringId(getBaseContext(),selectedItem.getLocalName(),"recommendation"));
+            recomTextView.setHtml("recommendations goes here");
         } catch (Exception e) {
             e.printStackTrace();
         }

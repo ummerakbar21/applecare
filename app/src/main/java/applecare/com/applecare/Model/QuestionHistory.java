@@ -6,13 +6,18 @@ import java.io.Serializable;
  * Created by shabir on 03-03-2018.
  */
 
-public class HistoryItem implements Serializable {
+public class QuestionHistory implements Serializable {
     private String title;
     private Integer faqId;
     private String prevalenceTime;
     private String drawable;
     private  String localName;
-    public HistoryItem() {
+    private String description;
+    private String author;
+    private String photo;
+    private boolean isAnswered;
+
+    public QuestionHistory() {
 
     }
 
@@ -24,7 +29,7 @@ public class HistoryItem implements Serializable {
         this.drawable = drawable;
     }
 
-    public HistoryItem(Integer faqId, String title, String prevalenceTime, String drawable, String localName) {
+    public QuestionHistory(Integer faqId, String title, String prevalenceTime, String drawable, String localName) {
         this.faqId=faqId;
         this.title=title;
         this.prevalenceTime=prevalenceTime;

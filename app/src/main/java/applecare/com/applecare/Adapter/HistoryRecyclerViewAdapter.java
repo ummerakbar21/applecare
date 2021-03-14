@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
-import applecare.com.applecare.Activity.DetailActivity;
 import applecare.com.applecare.Activity.HistoryDetailActivity;
-import applecare.com.applecare.Model.HistoryItem;
+import applecare.com.applecare.Fragment.Question;
 import applecare.com.applecare.R;
-import applecare.com.applecare.Utils.Utilities;
 
 /**
  * Created by shabir on 03-03-2018.
@@ -24,8 +24,8 @@ import applecare.com.applecare.Utils.Utilities;
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewHolder> {
     private LayoutInflater inflater;
     private Context context;
-    List<HistoryItem> data;
-    public HistoryRecyclerViewAdapter(Context context, List<HistoryItem> data) {
+    List<Question> data;
+    public HistoryRecyclerViewAdapter(Context context, List<Question> data) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.data = data;
@@ -39,9 +39,10 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     @Override
     public void onBindViewHolder(HistoryRecyclerViewHolder holder, int position) {
-        final HistoryItem current = data.get(position);
+        final Question current = data.get(position);
         holder.title.setText(current.getTitle());
-        holder.imageView.setImageDrawable(Utilities.getImageFromDrawable(context,current.getDrawable()));
+        Picasso.get().load(current.getThumbnail()).into(holder.imageView);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

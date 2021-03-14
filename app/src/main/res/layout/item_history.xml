@@ -14,7 +14,7 @@
         android:background="@drawable/rectangle_white"
         android:elevation="@dimen/activity_horizontal_margin"
         android:fitsSystemWindows="true"
-        android:scaleType="fitCenter"
+        android:scaleType="fitXY"
         android:src="@drawable/apple"
         />
 
@@ -22,7 +22,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="nvnjkcnvx"
+        android:text="Yet to Answer"
         android:drawableEnd="@drawable/ic_action_circle_arrow"
         android:drawableRight="@drawable/ic_action_circle_arrow"
         android:paddingEnd="@dimen/activity_horizontal_margin"

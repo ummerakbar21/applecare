@@ -235,6 +235,7 @@ Lower 75cm of trunk
     <string name="email">Email</string>
     <string name="name">Name</string>
     <string name="already_sign_up">Already Sign up? Login here</string>
+    <string name="appname">AppleCare</string>
 
 
 </resources>

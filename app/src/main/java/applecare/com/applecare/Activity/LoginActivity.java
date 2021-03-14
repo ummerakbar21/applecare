@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,11 +26,20 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import applecare.com.applecare.Model.LoginUser;
+import applecare.com.applecare.Model.User;
 import applecare.com.applecare.R;
+import applecare.com.applecare.network.APIClient;
+import applecare.com.applecare.network.APIInterface;
+import applecare.com.applecare.network.SessionManager;
 import dmax.dialog.SpotsDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,18 +47,19 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText etPassword;
     private Button loginBtn;
     private TextView signUpLink;
-    private FirebaseAuth mAuth;
+
     private String  email,password;
     SpotsDialog waitingDialog ;
     private ConstraintLayout rootLayout;
+    private SessionManager sessionManager;
+    private String firebaseToken;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_login);
 
-
-        mAuth = FirebaseAuth.getInstance();
         waitingDialog= (SpotsDialog) new SpotsDialog.Builder().setContext(this).setMessage("Logging In...").build();
          initializeViews();
          loginClick();
@@ -81,34 +92,12 @@ public class LoginActivity extends AppCompatActivity {
                     etPassword.setError("Password should be atleast 6 characters");
                 }
                 else {
-                    doLogin();
+                   logIn();
                 }
             }
         });
     }
 
-    private void doLogin() {
-        waitingDialog.show();
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                if (task.isSuccessful()){
-                    waitingDialog.dismiss();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                   startActivity(intent);
-                 //   finish();
-                }
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                waitingDialog.dismiss();
-                Snackbar.make(rootLayout,""+e.getMessage(),Snackbar.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     private void getTextFromEditTexts() {
 
@@ -122,6 +111,58 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.login_join_button);
         rootLayout = findViewById(R.id.login_root);
         signUpLink = findViewById(R.id.signUpLink);
+    }
+    private  void  logIn(){
+        waitingDialog.show();
+        Retrofit retrofit = APIClient.getClient();
+        APIInterface apiInterface=retrofit.create(APIInterface.class);
+        sessionManager = SessionManager.getSessionManager(this);
+        LoginUser loginUser = new LoginUser(email,password);
+        apiInterface.loginUser(loginUser,sessionManager.getAuthTokenForSignUP()).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d("TAG", "onResponse: "+response);
+                waitingDialog.dismiss();
+                if(response.body() != null){
+                    sessionManager.saveConfigData(response.body());
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Snackbar.make(rootLayout,""+"Something went wrong",Snackbar.LENGTH_LONG).show();
+
+                Log.d("TAG", "onFailure: "+"fail");
+
+            }
+        });
+
+
+    }
+    private  void getFirebaseToken(){
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            // Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        firebaseToken = task.getResult();
+
+
+                    }
+                });
+
     }
 
 }

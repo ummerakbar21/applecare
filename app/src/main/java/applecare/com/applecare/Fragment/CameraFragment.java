@@ -1,6 +1,8 @@
 package applecare.com.applecare.Fragment;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,11 +20,27 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import applecare.com.applecare.Activity.MainActivity;
+import applecare.com.applecare.Activity.SignUpActivity;
+import applecare.com.applecare.Model.User;
 import applecare.com.applecare.R;
+import applecare.com.applecare.network.APIClient;
+import applecare.com.applecare.network.APIInterface;
+import applecare.com.applecare.network.SessionManager;
+import dmax.dialog.SpotsDialog;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -35,17 +53,23 @@ public class CameraFragment extends Fragment {
     private ImageView caputuredImageView;
     private ImageButton cameraImageButton;
     Uri uriSavedImage;
+    private static File  filePath;
+    private SessionManager sessionManager;
     // Request code for runtime permissions
     private final int REQUEST_CODE_STORAGE_PERMS = 321;
     public CameraFragment(){}
-
+    SpotsDialog waitingDialog ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_camera,container,false);
         caputuredImageView=(ImageView)view.findViewById(R.id.image_cpatured_view);
         cameraImageButton=(ImageButton)view.findViewById(R.id.camera_button);
         cameraImageButton.setOnClickListener(onClick);
+        view.findViewById(R.id.upload_button).setOnClickListener(onClick);
         //dispatchTakePictureIntent(view);
+        waitingDialog= (SpotsDialog) new SpotsDialog.Builder().setContext(getContext()).setMessage("Please wait...").build();
+
+
         if (ContextCompat.checkSelfPermission(view.getContext(),Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             cameraImageButton.setEnabled(false);
             requestPermissions( new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
@@ -85,7 +109,9 @@ public class CameraFragment extends Fragment {
     private View.OnClickListener onClick=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (view.getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            if (view.getId() == R.id.upload_button) {
+                uploadImage();
+            }else if (view.getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
                takePicture(view);
 
             } else {
@@ -109,6 +135,7 @@ public class CameraFragment extends Fragment {
     public void takePicture(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         uriSavedImage = Uri.fromFile(getOutputMediaFile());
+        File file=  new File(String.valueOf(uriSavedImage));
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
 
         startActivityForResult(intent, 100);
@@ -125,8 +152,9 @@ public class CameraFragment extends Fragment {
         }
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        return new File(mediaStorageDir.getPath() + File.separator +
+         filePath = new File(mediaStorageDir.getPath() + File.separator +
                 "IMG_"+ timeStamp + ".jpg");
+         return filePath;
     }
 
     @Override
@@ -203,4 +231,66 @@ public class CameraFragment extends Fragment {
 
         }
     }*/
+
+    private  void  uploadImage(){
+        waitingDialog.show();
+        Retrofit retrofit = APIClient.getClient();
+        APIInterface apiInterface=retrofit.create(APIInterface.class);
+        sessionManager = SessionManager.getSessionManager(getActivity());
+        File file = new File(String.valueOf(uriSavedImage));
+
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), filePath);
+
+// MultipartBody.Part is used to send also the actual file name
+        MultipartBody.Part photo =
+                MultipartBody.Part.createFormData("photo", filePath.getName(), requestFile);
+
+// add another part within the multipart request
+        RequestBody description =
+                RequestBody.create(MediaType.parse("multipart/form-data"), "Your Name");
+        String accessToken = sessionManager.getAccessToken();
+
+
+        apiInterface.uploadQuestion(" Bearer "+sessionManager.getAccessToken(),description,photo).enqueue(new Callback<Question>() {
+            @Override
+            public void onResponse(Call<Question> call, Response<Question> response) {
+                Log.d("TAG", "onResponse: "+response);
+                waitingDialog.dismiss();
+
+                createAlert();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Question> call, Throwable t) {
+                Log.d("TAG", "onResponse: "+t.getMessage());
+                waitingDialog.dismiss();
+              //  waitingDialog.dismiss();
+
+
+            }
+
+        });
+
+
+
+
+    }
+    private void createAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                getContext());
+        builder.setTitle("Alert");
+        builder.setCancelable(false);
+        builder.setMessage("Your question is uploaded.");
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                      //  Toast.makeText(getApplicationContext(),"Yes is clicked",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
+    }
 }

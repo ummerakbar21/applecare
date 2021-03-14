@@ -23,21 +23,16 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+
+
 
 import applecare.com.applecare.Fragment.CameraFragment;
 import applecare.com.applecare.Fragment.FAQFragment;
 import applecare.com.applecare.Fragment.HistoryFragment;
-import applecare.com.applecare.Model.SignUpUser;
+import applecare.com.applecare.Model.User;
 import applecare.com.applecare.R;
 import applecare.com.applecare.Utils.Constants;
+import applecare.com.applecare.network.SessionManager;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -51,17 +46,15 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     SharedPreferences userTypeSharedPreferences;
     public String MyPREFERENCES = "UserPrefs" ;
-    private FirebaseAuth mAuth;
-    private DatabaseReference userRef;
+
+    private  SessionManager sessionManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mAuth = FirebaseAuth.getInstance();
-        userRef = FirebaseDatabase.getInstance().getReference("Users");
-
+        sessionManager=SessionManager.getSessionManager(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -133,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 //                        final SharedPreferences.Editor editor = userTypeSharedPreferences.edit();
 //                        editor.putBoolean("login",false);
 //                        editor.commit();
-                        mAuth.signOut();
+                        sessionManager.saveConfigData(null);
                         Intent loginIntent=new Intent(getBaseContext(),LoginActivity.class);
                         startActivity(loginIntent);
                         finish();
@@ -153,23 +146,8 @@ public class MainActivity extends AppCompatActivity {
     private void setUserName() {
         View headerView = navigationView.getHeaderView(0);
         userNameTv = headerView.findViewById(R.id.user_name_drawer);
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        Query query = userRef.orderByChild("email").equalTo(firebaseUser.getEmail());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data:snapshot.getChildren() ) {
-                    Constants.currentUser = data.getValue(SignUpUser.class);
-                }
-                userNameTv.setText(Constants.currentUser.getName());
+        userNameTv.setText(sessionManager.getUser().getFirstName());
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     private void loadFragment() {

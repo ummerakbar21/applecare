@@ -33,9 +33,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.firebase:firebase-auth:20.0.0'
-    implementation 'com.google.firebase:firebase-database:19.5.1'
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation 'androidx.appcompat:appcompat:1.0.0'
@@ -44,7 +42,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'org.sufficientlysecure:html-textview:2.0'// for html text views
-    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    //implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     testImplementation 'junit:junit:4.12'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -58,5 +56,16 @@ dependencies {
 
 
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.2'
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+
+    implementation platform('com.google.firebase:firebase-bom:26.1.1')
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }

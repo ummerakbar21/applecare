@@ -7,42 +7,35 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import applecare.com.applecare.R;
+import applecare.com.applecare.network.SessionManager;
 
 public class Splash extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         sessionManager = SessionManager.getSessionManager(this);
 
-        mAuth = FirebaseAuth.getInstance();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                authStateListener = new FirebaseAuth.AuthStateListener() {
-                    @Override
-                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        if (user !=null){
-                            startActivity( new Intent(Splash.this, MainActivity.class));
-                        }
-                        else {
-                            startActivity( new Intent(Splash.this, SignUpActivity.class));
-                        }
-                    }
-                };
+                if (sessionManager.getUser() !=null){
 
-                mAuth.addAuthStateListener(authStateListener);
+                    Log.d("TAG", "getAccessToken: "+ sessionManager.getUser().getAccessToken());
+                    startActivity( new Intent(Splash.this, MainActivity.class));
+                }
+                else {
+                    startActivity( new Intent(Splash.this, SignUpActivity.class));
+                }
             }
         },3000);
     }
@@ -56,9 +49,7 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (authStateListener !=null){
-            mAuth.removeAuthStateListener(authStateListener);
-        }
+
     }
 
     @Override
