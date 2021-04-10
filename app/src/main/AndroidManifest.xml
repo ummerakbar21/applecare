@@ -62,6 +62,10 @@
             android:name=".Activity.HistoryDetailActivity"
             android:label="@string/title_activity_history_detail"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.AnswerDetailActivity"
+            android:label="@string/title_activity_answer_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">

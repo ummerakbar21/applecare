@@ -29,6 +29,7 @@ import com.google.android.material.navigation.NavigationView;
 import applecare.com.applecare.Fragment.CameraFragment;
 import applecare.com.applecare.Fragment.FAQFragment;
 import applecare.com.applecare.Fragment.HistoryFragment;
+import applecare.com.applecare.Fragment.QuestionFragmentExpert;
 import applecare.com.applecare.Model.User;
 import applecare.com.applecare.R;
 import applecare.com.applecare.Utils.Constants;
@@ -77,12 +78,15 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder(); StrictMode.setVmPolicy(builder.build());
 
         userTypeSharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        if(userTypeSharedPreferences.getString("type","farmer").equalsIgnoreCase(getResources().getString(R.string.farmer))){
+        if( userTypeSharedPreferences.getString("type","farmer").equalsIgnoreCase(getResources().getString(R.string.farmer))){
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_farmer);
-        }else if(userTypeSharedPreferences.getString("type","").equalsIgnoreCase(getResources().getString(R.string.expert))) {
+            bottomNavigation.getMenu().findItem(R.id.action_faq).setChecked(true);
+
+        }else if( userTypeSharedPreferences.getString("type","").equalsIgnoreCase(getResources().getString(R.string.expert))) {
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_expert);
+            bottomNavigation.getMenu().findItem(R.id.action_questions).setChecked(true);
+
         }
-        bottomNavigation.getMenu().findItem(R.id.action_faq).setChecked(true);
         //set the bottom navigation item click listener
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -97,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_history:
                         fragment = new HistoryFragment();
                         break;
+                    case R.id.action_questions:
+                        fragment = new QuestionFragmentExpert();
+                        break;
+
+
                 }
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, fragment).commit();

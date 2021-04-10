@@ -7,6 +7,7 @@
     <dimen name="edittext_width">340dp</dimen>
     <dimen name="label_height">30dp</dimen>
     <dimen name="text_bold">32dp</dimen>
+    <dimen name="text_bold_answer">32dp</dimen>
     <dimen name="four">4dp</dimen>
     <dimen name="button_height">40dp</dimen>
     <dimen name="twenty">20dp</dimen>

@@ -231,11 +231,14 @@ Lower 75cm of trunk
     <string name="collar_rot_recommendation">-Avoid saturation of soil</string>
     <string name="title_activity_history_detail">HistoryDetailActivity</string>
     <string name="symptoms">Symptoms</string>
+    <string name="title_activity_answer_detail">AnswerDetailActivity</string>
+
     <string name="recommendtion">Recommendation</string>
     <string name="email">Email</string>
     <string name="name">Name</string>
     <string name="already_sign_up">Already Sign up? Login here</string>
     <string name="appname">AppleCare</string>
+    <string name="diseaseName">Diease Name</string>
 
 
 </resources>

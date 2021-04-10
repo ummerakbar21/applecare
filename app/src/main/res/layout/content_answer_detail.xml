@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="applecare.com.applecare.Activity.HistoryDetailActivity"
+    tools:showIn="@layout/activity_history_detail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="@string/diseaseName"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_bold_answer" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Diease Name"
+            android:layout_margin="8dp"
+            android:background="@drawable/rect_edit_text"
+
+            style="@style/Body">
+
+        </EditText>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="@string/symptoms"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_bold_answer" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:hint="Symptoms"
+            android:background="@drawable/rect_edit_text"
+            android:maxLines="4"
+            android:layout_margin="8dp"
+            android:lines="4"
+            style="@style/Body">
+
+        </EditText>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="@string/recommendtion"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_bold_answer" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:maxLines="4"
+            android:hint="Recommendation"
+            android:lines="4"
+            android:background="@drawable/rect_edit_text"
+            android:layout_margin="8dp"
+            style="@style/Body">
+
+        </EditText>
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/answer_button"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_edge_rectangle"
+            android:backgroundTint="@color/colorblackGreen"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:text="Submit"
+            android:textAlignment="center"
+            android:layout_margin="8dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
