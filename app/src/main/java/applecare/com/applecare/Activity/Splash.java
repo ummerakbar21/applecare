@@ -32,10 +32,13 @@ public class Splash extends AppCompatActivity {
 
                     Log.d("TAG", "getAccessToken: "+ sessionManager.getUser().getAccessToken());
                     startActivity( new Intent(Splash.this, MainActivity.class));
+                    finish();
                 }
                 else {
                     startActivity( new Intent(Splash.this, SignUpActivity.class));
+                    finish();
                 }
+
             }
         },3000);
     }

@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private String email;
+    @SerializedName("username")
+    private String userName;
     @SerializedName("first_name")
     private String firstName;
     @SerializedName("last_name")
@@ -26,7 +27,7 @@ public class User implements Serializable {
     public User(String email, String firstName, String lastName, String password, String district, String userType, String firebaseUID) {
 
 
-        this.email = email;
+        this.userName = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -59,12 +60,12 @@ public class User implements Serializable {
         this.firebaseToken = firebaseToken;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFirstName() {

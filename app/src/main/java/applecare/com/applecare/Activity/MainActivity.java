@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_farmer);
             bottomNavigation.getMenu().findItem(R.id.action_faq).setChecked(true);
 
-        }else if( userTypeSharedPreferences.getString("type","").equalsIgnoreCase(getResources().getString(R.string.expert))) {
+        }else if ( userTypeSharedPreferences.getString("type","").equalsIgnoreCase(getResources().getString(R.string.expert))) {
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_expert);
             bottomNavigation.getMenu().findItem(R.id.action_questions).setChecked(true);
 
