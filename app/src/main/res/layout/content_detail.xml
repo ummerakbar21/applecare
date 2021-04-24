@@ -22,12 +22,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Body"
-            android:layout_marginBottom="5sp"
-            android:layout_marginTop="5sp"
-            android:lineSpacingMultiplier="1.1"
+            android:layout_margin = "8dp"
+            android:lineSpacingMultiplier="1.3"
             android:id="@+id/body_view"
-            android:gravity="center"
-            android:text="this is the dummy body text lorem ipsum dolor amet "
+            android:gravity="fill"
+            android:text="the dummy body text lorem ipsum dolor amet "
             />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

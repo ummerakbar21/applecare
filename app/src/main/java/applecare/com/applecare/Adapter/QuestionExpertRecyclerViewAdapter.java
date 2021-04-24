@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import applecare.com.applecare.Activity.AnswerDetailActivity;
-import applecare.com.applecare.Activity.HistoryDetailActivity;
 import applecare.com.applecare.Fragment.Question;
 import applecare.com.applecare.R;
 
@@ -41,7 +40,7 @@ public class QuestionExpertRecyclerViewAdapter extends RecyclerView.Adapter<Hist
     @Override
     public void onBindViewHolder(HistoryRecyclerViewHolder holder, int position) {
         final Question current = data.get(position);
-        holder.title.setText(current.getTitle());
+        //holder.Date.setText(current.getTitle());
         Picasso.get().load(current.getThumbnail()).into(holder.imageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

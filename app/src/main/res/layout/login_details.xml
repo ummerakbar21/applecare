@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="90dp"
             android:background="@drawable/signup_button_bg"
-            android:text="JOIN"
+            android:text="Login"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"

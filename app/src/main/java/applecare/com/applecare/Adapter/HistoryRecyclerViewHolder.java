@@ -15,11 +15,16 @@ import applecare.com.applecare.R;
  */
 
 public class HistoryRecyclerViewHolder extends RecyclerView.ViewHolder {
-    TextView title;
+    TextView dateView;
     ImageView imageView;
+    TextView statusView;
+    ImageView imageViewArrow;
+
     public HistoryRecyclerViewHolder(View itemView) {
         super(itemView);
         imageView=(ImageView)itemView.findViewById(R.id.imageView);
-        title = (TextView) itemView.findViewById(R.id.title);
+        imageViewArrow=(ImageView)itemView.findViewById(R.id.imageViewArrow);
+        dateView = (TextView) itemView.findViewById(R.id.date);
+        statusView = (TextView) itemView.findViewById(R.id.status);
     }
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
 import java.util.List;
 
 import applecare.com.applecare.Activity.HistoryDetailActivity;
@@ -40,7 +41,14 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     @Override
     public void onBindViewHolder(HistoryRecyclerViewHolder holder, int position) {
         final Question current = data.get(position);
-        holder.title.setText(current.getTitle());
+
+        holder.dateView.setText(current.getAddedOn());
+        if(current.isAnswered()){
+            holder.statusView.setText("Question is answered");
+        }else  {
+            holder.statusView.setText("Yet to answer");
+        }
+
         Picasso.get().load(current.getThumbnail()).into(holder.imageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
