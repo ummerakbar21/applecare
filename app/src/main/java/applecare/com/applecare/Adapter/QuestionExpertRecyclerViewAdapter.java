@@ -40,7 +40,11 @@ public class QuestionExpertRecyclerViewAdapter extends RecyclerView.Adapter<Hist
     @Override
     public void onBindViewHolder(HistoryRecyclerViewHolder holder, int position) {
         final Question current = data.get(position);
-        //holder.Date.setText(current.getTitle());
+        if(current.isAnswered()){
+            holder.statusView.setText("Question is answered");
+        }else  {
+            holder.statusView.setText("Yet to answer");
+        }
         Picasso.get().load(current.getThumbnail()).into(holder.imageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -33,7 +33,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+    implementation 'androidx.wear:wear:1.1.0'
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation 'androidx.appcompat:appcompat:1.0.0'
@@ -67,5 +68,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    // Declare the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth'
+    compileOnly 'com.google.android.wearable:wearable:2.8.1'
 
 }

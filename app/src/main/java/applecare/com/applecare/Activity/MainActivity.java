@@ -77,14 +77,14 @@ public class MainActivity extends AppCompatActivity {
         loadFragment();
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder(); StrictMode.setVmPolicy(builder.build());
 
-        userTypeSharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        if( userTypeSharedPreferences.getString("type","farmer").equalsIgnoreCase(getResources().getString(R.string.farmer))){
+       // userTypeSharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        if( sessionManager.getUser().getUserType().equalsIgnoreCase(getResources().getString(R.string.farmer))){
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_farmer);
             bottomNavigation.getMenu().findItem(R.id.action_faq).setChecked(true);
 
-        }else if ( userTypeSharedPreferences.getString("type","").equalsIgnoreCase(getResources().getString(R.string.expert))) {
+        }else if ( sessionManager.getUser().getUserType().equalsIgnoreCase(getResources().getString(R.string.expert))) {
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_expert);
-            bottomNavigation.getMenu().findItem(R.id.action_questions).setChecked(true);
+            bottomNavigation.getMenu().findItem(R.id.action_faq).setChecked(true);
 
         }
         //set the bottom navigation item click listener
@@ -101,9 +101,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_history:
                         fragment = new HistoryFragment();
                         break;
-                    case R.id.action_questions:
+                    case R.id.questions_answered:
                         fragment = new QuestionFragmentExpert();
                         break;
+                    case R.id.unanswered_questions:
+                        fragment = new QuestionFragmentExpert();
+                        break;
+
 
 
                 }
