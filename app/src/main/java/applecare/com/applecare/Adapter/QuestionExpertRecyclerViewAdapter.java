@@ -41,7 +41,7 @@ public class QuestionExpertRecyclerViewAdapter extends RecyclerView.Adapter<Hist
     public void onBindViewHolder(HistoryRecyclerViewHolder holder, int position) {
         final Question current = data.get(position);
         if(current.isAnswered()){
-            holder.statusView.setText("Question is answered");
+            holder.statusView.setText("");
         }else  {
             holder.statusView.setText("Yet to answer");
         }

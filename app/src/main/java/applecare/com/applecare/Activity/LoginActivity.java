@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_login);
-
+        getFirebaseToken();
         waitingDialog= (SpotsDialog) new SpotsDialog.Builder().setContext(this).setMessage("Logging In...").build();
          initializeViews();
          loginClick();
@@ -105,10 +105,11 @@ public class LoginActivity extends AppCompatActivity {
     }
     private  void  logIn(){
         waitingDialog.show();
+
         Retrofit retrofit = APIClient.getClient();
         APIInterface apiInterface=retrofit.create(APIInterface.class);
         sessionManager = SessionManager.getSessionManager(this);
-        LoginUser loginUser = new LoginUser(mobileNumber,password);
+        LoginUser loginUser = new LoginUser(mobileNumber,password,firebaseToken);
         apiInterface.loginUser(loginUser,sessionManager.getAuthTokenForSignUP()).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -149,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         // Get new FCM registration token
                         firebaseToken = task.getResult();
-
+                        Log.d("", "onComplete: in log      "+firebaseToken);
 
                     }
                 });

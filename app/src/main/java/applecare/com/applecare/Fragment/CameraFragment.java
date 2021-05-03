@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -34,6 +35,7 @@ import applecare.com.applecare.network.APIClient;
 import applecare.com.applecare.network.APIInterface;
 import applecare.com.applecare.network.SessionManager;
 import dmax.dialog.SpotsDialog;
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -238,13 +240,18 @@ public class CameraFragment extends Fragment {
         APIInterface apiInterface=retrofit.create(APIInterface.class);
         sessionManager = SessionManager.getSessionManager(getActivity());
         File file = new File(String.valueOf(uriSavedImage));
+        try {
+            file = new Compressor(getContext()).compressToFile(filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         RequestBody requestFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), filePath);
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
 // MultipartBody.Part is used to send also the actual file name
         MultipartBody.Part photo =
-                MultipartBody.Part.createFormData("photo", filePath.getName(), requestFile);
+                MultipartBody.Part.createFormData("photo",file.getName(), requestFile);
 
 // add another part within the multipart request
         RequestBody description =

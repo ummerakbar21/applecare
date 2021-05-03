@@ -10,6 +10,7 @@ public class Question  implements Serializable {
     private String author;
     private String photo;
     private String thumbnail;
+    @SerializedName("is_answered")
     private boolean isAnswered;
     private String title;
     @SerializedName("added_on")

@@ -72,5 +72,6 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-auth'
     compileOnly 'com.google.android.wearable:wearable:2.8.1'
+    implementation 'id.zelory:compressor:2.1.1'
 
 }

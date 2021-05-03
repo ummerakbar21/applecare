@@ -246,6 +246,18 @@ Lower 75cm of trunk
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+        <string-array name="planets_array">
+            <item>Choose disease name</item>
+            <item>Scab</item>
+            <item>Alternaria leaf spot</item>
+            <item>Marsonina leaf blotch</item>
+            <item>Powdery mildew</item>
+            <item>Sooty blotch and Flyspeck</item>
+            <item>Black rot</item>
+            <item>Core rot</item>
+            <item>Collar Rot</item>
+            <item>Other</item>
+        </string-array>
 
 
 </resources>

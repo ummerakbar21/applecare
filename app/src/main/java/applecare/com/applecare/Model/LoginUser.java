@@ -6,11 +6,18 @@ public class LoginUser {
     @SerializedName("username")
     private String userName;
     private String password;
-    private String firebaseToken;
 
+    @SerializedName("firebase_token")
+    private String firebaseToken;
     public LoginUser(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    public LoginUser(String userName, String password, String firebaseToken) {
+        this.userName = userName;
+        this.password = password;
+        this.firebaseToken = firebaseToken;
     }
 
     public String getUserName() {

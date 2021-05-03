@@ -220,7 +220,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Retrofit retrofit = APIClient.getClient();
         APIInterface apiInterface=retrofit.create(APIInterface.class);
         sessionManager = SessionManager.getSessionManager(this);
-        User signUpUser = new User(mobileNumber,name,"",password,district,"expert",firebaseToken);
+        User signUpUser = new User(mobileNumber,name,"",password,district,"user",firebaseToken);
         apiInterface.userSignLogin(signUpUser,sessionManager.getAuthTokenForSignUP()).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
