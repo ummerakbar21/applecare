@@ -11,6 +11,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +29,7 @@ import applecare.com.applecare.network.APIClient;
 import applecare.com.applecare.network.APIInterface;
 import applecare.com.applecare.network.SessionManager;
 import dmax.dialog.SpotsDialog;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +44,7 @@ public class HistoryFragment extends Fragment {
     private HistoryRecyclerViewAdapter historyAdapter;
     private TextView noQuestion;
     SpotsDialog waitingDialog ;
-    private Callback<List<Question>> callback;
+    private Callback<ResponseBody> callback;
 
     public HistoryFragment(){
 
@@ -61,11 +70,11 @@ public class HistoryFragment extends Fragment {
         SessionManager sessionManager = SessionManager.getSessionManager(getActivity());
 
 
-              callback =      new Callback<List<Question>>() {
+              callback =      new Callback<ResponseBody>() {
               @Override
-              public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
+              public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                   waitingDialog.dismiss();
-                  if(response.body()==null || response.body().size()==0){
+                  if(response.body().toString()==null ){
                       noQuestion.setVisibility(View.VISIBLE);
                       if(sessionManager.getUser().getUserType().equalsIgnoreCase("user")){
                           noQuestion.setText("You have not asked any question so far");
@@ -75,7 +84,15 @@ public class HistoryFragment extends Fragment {
                       }
 
                   }else {
-                      historyAdapter=new HistoryRecyclerViewAdapter(getContext(),response.body());
+                      List<Question> questions = new ArrayList<>();
+                      try {
+                          JSONObject jsonObject = new JSONObject(response.body().string());
+                          Gson gson = new Gson();
+                         questions= gson.fromJson(String.valueOf(jsonObject.optJSONArray("results")), new TypeToken<List<Question>>(){}.getType());
+                      } catch (JSONException | IOException e) {
+                          e.printStackTrace();
+                      }
+                      historyAdapter=new HistoryRecyclerViewAdapter(getContext(),questions);
                       historyRecyclerView.setAdapter(historyAdapter);
                       historyAdapter.notifyDataSetChanged();
                       noQuestion.setVisibility(View.GONE);
@@ -85,7 +102,7 @@ public class HistoryFragment extends Fragment {
               }
 
               @Override
-              public void onFailure(Call<List<Question>> call, Throwable t) {
+              public void onFailure(Call<ResponseBody> call, Throwable t) {
                   noQuestion.setVisibility(View.VISIBLE);
                   noQuestion.setText("Something went wrong please check later");
                   waitingDialog.dismiss();

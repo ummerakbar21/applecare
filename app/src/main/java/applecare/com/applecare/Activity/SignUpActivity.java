@@ -7,7 +7,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +21,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.mukesh.OnOtpCompletionListener;
+import com.mukesh.OtpView;
 
+import applecare.com.applecare.Model.OTP;
 import applecare.com.applecare.Model.User;
 import applecare.com.applecare.R;
 import applecare.com.applecare.network.APIClient;
@@ -50,12 +55,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     SpotsDialog waitingDialog ;
     private SessionManager sessionManager;
     private String firebaseToken;
-
+    private OtpView otpView;
+    private ImageView closeIcon;
+    private ConstraintLayout activityOtp;
+    private OTP otpObj = new OTP();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
         waitingDialog= (SpotsDialog) new SpotsDialog.Builder().setContext(this).setMessage("Registering...").build();
         initializeView();
         getFirebaseToken();
@@ -74,6 +83,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         signUpBtn.setOnClickListener(this);
         alreadySignUpLink= findViewById(R.id.alreadyJoin_signUp);
         alreadySignUpLink.setOnClickListener(this);
+        otpView = findViewById(R.id.otp_view);
+        closeIcon = findViewById(R.id.close_icon);
+        closeIcon.setOnClickListener(this);
+        activityOtp = findViewById(R.id.otp_parent_view);
+        setOtpViewListener();
     }
 
     @Override
@@ -84,10 +98,48 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.alreadyJoin_signUp:
                 goToLoginActivity();
-            default:
+                break;
+            case R.id.close_icon:
+                activityOtp.setVisibility(View.GONE);
+                break;
+                 default:
                 break;
         }
 
+    }
+    protected void setOtpViewListener(){
+        otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
+            @Override public void onOtpCompleted(String otp) {
+                Retrofit retrofit = APIClient.getClient2();
+                APIInterface apiInterface=retrofit.create(APIInterface.class);
+                apiInterface.verifyOTP(otpObj.getDetails(),otp).enqueue(new Callback<OTP>() {
+                    @Override
+                    public void onResponse(Call<OTP> call, Response<OTP> response) {
+                        if( response.body()!= null && response.body().getStatus().equalsIgnoreCase("Success") && response.body().getDetails().equalsIgnoreCase("OTP Matched")){
+
+                           signUpUserAfterVerification();
+                           activityOtp.setVisibility(View.GONE);
+
+                        }else {
+                            Toast.makeText(SignUpActivity.this, "Wrong OTP please retry", Toast.LENGTH_SHORT).show();
+
+                        }
+                        //Toast.makeText(SignUpActivity.this, "Verified", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<OTP> call, Throwable t) {
+                        Toast.makeText(SignUpActivity.this, "Try again", Toast.LENGTH_SHORT).show();
+                        activityOtp.setVisibility(View.GONE);
+                    }
+                });
+
+                // do Stuff
+                //Log.d("onOtpCompleted=>", otp);
+               // Toast.makeText(SignUpActivity.this, otp, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void goToLoginActivity() {
@@ -215,7 +267,29 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     }*/
 
+
+
     private  void  registerUser(){
+       // activityOtp.setVisibility(View.VISIBLE);
+        Retrofit retrofit = APIClient.getClient2();
+        APIInterface apiInterface=retrofit.create(APIInterface.class);
+        apiInterface.getOTP(mobileNumber).enqueue(new Callback<OTP>() {
+            @Override
+            public void onResponse(Call<OTP> call, Response<OTP> response) {
+                activityOtp.setVisibility(View.VISIBLE);
+                otpObj = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<OTP> call, Throwable t) {
+                Toast.makeText(SignUpActivity.this, "Try again", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+    private void signUpUserAfterVerification(){
+
         waitingDialog.show();
         Retrofit retrofit = APIClient.getClient();
         APIInterface apiInterface=retrofit.create(APIInterface.class);
@@ -232,7 +306,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     startActivity(intent);
                     finish();
                 }
-                if(response.errorBody().equals("User with this email already exists")){
+
+                if(response.errorBody().equals("User with this phone number/username already exists")){
                     mobileField.setError("User already exists");
                     Snackbar.make(rootLayout,""+"User with this email already exists",Snackbar.LENGTH_LONG).show();
 
