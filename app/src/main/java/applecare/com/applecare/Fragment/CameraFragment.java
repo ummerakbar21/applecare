@@ -235,15 +235,25 @@ public class CameraFragment extends Fragment {
     }*/
 
     private  void  uploadImage(){
+        if (uriSavedImage == null){
+
+            Toast.makeText(getContext(), "No Image found", Toast.LENGTH_SHORT).show();
+            return;
+        }
         waitingDialog.show();
         Retrofit retrofit = APIClient.getClient();
         APIInterface apiInterface=retrofit.create(APIInterface.class);
         sessionManager = SessionManager.getSessionManager(getActivity());
         File file = new File(String.valueOf(uriSavedImage));
+
         try {
             file = new Compressor(getContext()).compressToFile(filePath);
-        } catch (IOException e) {
+        } catch (Exception e) {
+
             e.printStackTrace();
+            Toast.makeText(getContext(), "No Image found", Toast.LENGTH_SHORT).show();
+            waitingDialog.dismiss();
+            return;
         }
 
         RequestBody requestFile =
