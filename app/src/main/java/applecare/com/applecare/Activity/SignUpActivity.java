@@ -307,7 +307,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     finish();
                 }
 
-                if(response.errorBody().equals("User with this phone number/username already exists")){
+                if(response.errorBody().toString().equals("User with this phone number/username already exists")){
                     mobileField.setError("User already exists");
                     Snackbar.make(rootLayout,""+"User with this email already exists",Snackbar.LENGTH_LONG).show();
 
