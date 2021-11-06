@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         Menu menu = navigationView.getMenu();
-        menu.findItem(R.id.notification).setVisible(!(sessionManager.getUser().getUserName().equalsIgnoreCase("user")));
+        menu.findItem(R.id.notification).setVisible(!(sessionManager.getUser().getUserType().equalsIgnoreCase("user")));
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         setDrawerLayout();
