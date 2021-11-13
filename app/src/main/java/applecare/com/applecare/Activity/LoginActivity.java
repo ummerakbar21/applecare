@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import applecare.com.applecare.Model.LoginUser;
+import applecare.com.applecare.Activity.RequestOTPActivity;
 import applecare.com.applecare.Model.User;
 import applecare.com.applecare.R;
 import applecare.com.applecare.network.APIClient;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText etPassword;
     private Button loginBtn;
     private TextView signUpLink;
+    private TextView requestOTPLink;
 
     private String mobileNumber,password;
     SpotsDialog waitingDialog ;
@@ -55,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
          initializeViews();
          loginClick();
         goToSignUpActivity();
+        goToRequestOTPActivity();
     }
 
     private void goToSignUpActivity() {
@@ -62,6 +65,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this,SignUpActivity.class));
+                finish();
+            }
+        });
+    }
+
+    private void goToRequestOTPActivity() {
+        requestOTPLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,RequestOTPActivity.class));
                 finish();
             }
         });
@@ -102,6 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.login_join_button);
         rootLayout = findViewById(R.id.login_root);
         signUpLink = findViewById(R.id.signUpLink);
+        requestOTPLink = findViewById(R.id.passwordResetLink);
     }
     private  void  logIn(){
         waitingDialog.show();
@@ -121,9 +135,6 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-
-
-
             }
 
             @Override

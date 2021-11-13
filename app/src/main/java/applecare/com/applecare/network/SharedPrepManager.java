@@ -16,7 +16,7 @@ public class SharedPrepManager {
     private static SharedPrepManager sInstance;
     private final SharedPreferences mPref;
 
-    private SharedPrepManager(Context context) {
+    public SharedPrepManager(Context context) {
         mPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
@@ -77,5 +77,17 @@ public class SharedPrepManager {
         String json = mPref.getString(CONFIG_KEY_VALUE, "");
         User user = gson.fromJson(json, User.class);
         return user;
+    }
+
+    public void saveMobileNumber(String mobileNumber)
+    {
+        mPref.edit().putString("mobileNumber",mobileNumber)
+                .commit();
+
+    }
+
+    public String getSavedMobileNumber()
+    {
+        return mPref.getString("mobileNumber",null);
     }
 }

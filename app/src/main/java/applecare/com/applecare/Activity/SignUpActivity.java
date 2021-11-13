@@ -289,7 +289,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     }
     private void signUpUserAfterVerification(){
-
         waitingDialog.show();
         Retrofit retrofit = APIClient.getClient();
         APIInterface apiInterface=retrofit.create(APIInterface.class);
@@ -310,7 +309,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 if(response.errorBody().toString().equalsIgnoreCase("User with this phone number/username already exists")){
                     mobileField.setError("User already exists");
                     Snackbar.make(rootLayout,""+"User with this email already exists",Snackbar.LENGTH_LONG).show();
-
 
                 }
 

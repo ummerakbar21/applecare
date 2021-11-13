@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/register_root"
+        android:id="@+id/reset_root"
         android:layout_marginBottom="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
@@ -14,16 +14,16 @@
 
         <TextView
 
-            android:id="@+id/login_label"
+            android:id="@+id/reset_password_label"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:autoSizeMaxTextSize="30sp"
             android:autoSizeMinTextSize="25sp"
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/roboto"
-            android:text="Login"
+            android:text="Reset Password"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
@@ -44,7 +44,7 @@
             android:id="@+id/textInputMobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline">
@@ -62,41 +62,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:visibility="visible"
-            android:id="@+id/textInputPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInputMobile"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:textSize="16sp"
-                android:hint="Password"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
 
         <Button
-            android:id="@+id/login_join_button"
+            android:id="@+id/request_otp_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/signup_button_bg"
-            android:text="Login"
+            android:text="Get OTP"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInputPassword"
+            app:layout_constraintTop_toBottomOf="@id/textInputMobile"
             app:layout_constraintBottom_toTopOf="@+id/signUpLink"/>
 
         <TextView
@@ -111,24 +89,24 @@
             android:layout_marginTop="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_join_button"
+            app:layout_constraintTop_toBottomOf="@id/loginLink"
             />
-
         <TextView
-            android:id="@+id/passwordResetLink"
-            android:layout_width="wrap_content"
+            android:id="@+id/loginLink"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Reset Password"
+            android:layout_width="wrap_content"
             android:textAlignment="textEnd"
-            android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/colorPrimary"
+            android:text="Go back to Login "
+            android:layout_marginTop="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signUpLink" />
+            app:layout_constraintTop_toBottomOf="@id/request_otp_button"
+            />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
