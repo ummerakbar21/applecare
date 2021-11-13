@@ -17,13 +17,8 @@
     <string name="nav_item_notifications">Messages</string>
 
     <!-- navigation drawer item labels  -->
-    <string-array name="nav_drawer_labels">
-        <item>@string/nav_item_home</item>
-        <item>@string/nav_item_friends</item>
-        <item>@string/nav_item_notifications</item>
-    </string-array>
-
     <string name="title_messages">Messages</string>
+
     <string name="title_friends">Friends</string>
     <string name="title_home">Home</string>
     <string name="sub_menu">Sub Menu</string>
@@ -137,8 +132,8 @@
     <string name="phone_required">Phone Rquired</string>
     <string name="name_required">Name Required</string>
     <string name="invalid_phone">Invalid Phone</string>
-
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_main2">Main2Activity</string>
@@ -146,16 +141,14 @@
     <string name="district">District</string>
     <string name="tehsil">Tehsil</string>
     <string name="pin">Pin</string>
-    <!--syptoms data-->
     <string name="scab_symptoms">Primary infection on lower surface of leaves . Spots develop as olivaceous and turn dark brown to black and become  velvety, may coalesce to cover the whole surface.
      Secondary infection occurs on upper surface and leaves become twisted or puckered with black circular spots.
     Fruits show small, black ,circular lesions on their skin both on trees as well as after cold storage. Entire fruit surface is susceptible to infection but infections early in the season generally cluster around the calyx end. Late summer or early fall may not be visible till storage, leading to pin point scab.</string>
-
+    <!--syptoms data-->
     <string name="alternaria_leaf_spot_symptoms">Spots are 1/8 to ¼ inches in diameter, round, brown and occasionally purple border. Some spots are grayish brown.
 Most of them undergo secondary enlargement and become irregular and more darker, acquiring frogeye appearance.
 Infection on petioles leads to 50% defoliation
 Fruit infection results in small, dark, raised pimple like lesions associated  with lenticels (often resembles lenticels blotch)</string>
-
 
     <string name="marsonina_leaf_blotch_symptoms">-Occurs on mature leaves
 5-10mm grayish brown spots often tinged purple at the periphery
@@ -207,8 +200,8 @@ Lower 75cm of trunk
 
     <string name="scab_recommendation">Choices: Dodine/Difenconazol/ Trifloxystrobin+Tebuconazol /Mancozeb/Captan</string>
 
-    <string name="alternaria_leaf_spot_recommendation">Difenconazol/ Flusilazol/ Trifloxystrobin+Tebuconazol / Tebuconazol </string>
 
+    <string name="alternaria_leaf_spot_recommendation">Difenconazol/ Flusilazol/ Trifloxystrobin+Tebuconazol / Tebuconazol </string>
 
     <string name="marsonina_leaf_blotch_recommendation">Difenconazol/ Flusilazol/Trifloxystrobin+Tebuconazol/ Tebuconazol/ Mancozb +carbendazim
 </string>
@@ -229,11 +222,13 @@ Lower 75cm of trunk
 
 
     <string name="collar_rot_recommendation">-Avoid saturation of soil</string>
+
+
     <string name="title_activity_history_detail">HistoryDetailActivity</string>
     <string name="symptoms">Symptoms</string>
     <string name="title_activity_answer_detail">AnswerDetailActivity</string>
-
     <string name="recommendtion">Recommendation</string>
+
     <string name="email">Email</string>
     <string name="mobile_number">Mobile</string>
     <string name="name">Name</string>
@@ -241,11 +236,16 @@ Lower 75cm of trunk
     <string name="appname">AppleCare</string>
     <string name="diseaseName">Diease Name</string>
     <string name="title_activity_phone">Phone</string>
+    <string name="hello_world">Hello Square World!</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->
-    <string name="hello_world">Hello Square World!</string>
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_friends</item>
+        <item>@string/nav_item_notifications</item>
+    </string-array>
     <string-array name="planets_array">
         <item>Choose disease name</item>
         <item>Scab</item>
