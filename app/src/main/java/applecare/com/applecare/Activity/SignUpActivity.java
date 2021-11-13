@@ -24,9 +24,11 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.mukesh.OnOtpCompletionListener;
 import com.mukesh.OtpView;
 
+import applecare.com.applecare.Model.ErrorResponse;
 import applecare.com.applecare.Model.OTP;
 import applecare.com.applecare.Model.User;
 import applecare.com.applecare.R;
+import applecare.com.applecare.Utils.ErrorUtils;
 import applecare.com.applecare.network.APIClient;
 import applecare.com.applecare.network.APIInterface;
 import applecare.com.applecare.network.SessionManager;
@@ -155,7 +157,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
        else if (TextUtils.isEmpty(name)){
-            nameField.setError("FirsName is Required");
+            nameField.setError("Name is Required");
 
         }
         else if (!name.isEmpty() &&name.length()<4){
@@ -297,7 +299,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         apiInterface.userSignLogin(signUpUser,sessionManager.getAuthTokenForSignUP()).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d("TAG", "onResponse: "+response);
                 waitingDialog.dismiss();
                 if(response.body() != null){
                     sessionManager.saveConfigData(response.body());
@@ -305,13 +306,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     startActivity(intent);
                     finish();
                 }
-
-                if(response.errorBody().toString().equalsIgnoreCase("User with this phone number/username already exists")){
-                    mobileField.setError("User already exists");
-                    Snackbar.make(rootLayout,""+"User with this email already exists",Snackbar.LENGTH_LONG).show();
-
+                else{
+                    ErrorResponse error = ErrorUtils.parseError(response);
+                    if(error.getError().equalsIgnoreCase("User with this phone number/username already exists")){
+                        mobileField.setError("User already exists");
+                        mobileField.requestFocus();
+                        Snackbar.make(rootLayout,""+"User with this Phone No. already exists",Snackbar.LENGTH_LONG).show();
                 }
 
+                }
 
             }
 

@@ -127,20 +127,32 @@ public class LoginActivity extends AppCompatActivity {
         apiInterface.loginUser(loginUser,sessionManager.getAuthTokenForSignUP()).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d("TAG", "onResponse: "+response);
                 waitingDialog.dismiss();
                 if(response.body() != null){
-                    sessionManager.saveConfigData(response.body());
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(response.code() == 200)
+                    {
+                        sessionManager.saveConfigData(response.body());
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+                else{
+                    if(response.code() == 401)
+                    {
+                        etMobileNumber.setError("Invalid Credentials");
+                        etMobileNumber.requestFocus();
+                    }
+                    else {
+                        Log.d("TAG", "onResponse: inside else");
+                    }
+
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Snackbar.make(rootLayout,""+"Something went wrong",Snackbar.LENGTH_LONG).show();
-
                 Log.d("TAG", "onFailure: "+"fail");
 
             }
