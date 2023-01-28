@@ -1,133 +1,285 @@
 package applecare.com.applecare.Activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.text.TextUtils;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.TextView;
 
-import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import applecare.com.applecare.Model.User;
 import applecare.com.applecare.R;
-import applecare.com.applecare.Utils.Constants;
+import applecare.com.applecare.network.APIClient;
+import applecare.com.applecare.network.APIInterface;
+import applecare.com.applecare.network.RetrofitCallback;
+import applecare.com.applecare.network.SessionManager;
+import dmax.dialog.SpotsDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
-public class SignUpActivity extends AppCompatActivity {
-    SharedPreferences userTypeSharedPreferences;
-    public String MyPREFERENCES = "UserPrefs" ;
-    EditText nameEditText;
-    EditText phoneEditText;
-    EditText emailEditText;
-    EditText passwordEditText;
-    EditText rptPasswrdEditText;
-    String userType="";
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
+    private ConstraintLayout rootLayout;
+    private TextInputEditText emailField;
+    private TextInputEditText nameField;
+    private TextInputEditText passwordField;
+    private TextInputEditText confirmPwdField;
+    private TextInputEditText districtField;
+    private Button signUpBtn;
+    private TextView alreadySignUpLink;
+    private String name;
+    private String email;
+    private String password;
+    private String confirmPassword;
+
+    private String district;
+    SpotsDialog waitingDialog ;
+    private SessionManager sessionManager;
+    private String firebaseToken;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        RadioGroup userTypeRadioGroup=(RadioGroup)findViewById(R.id.radio_grop);
-        RadioButton farmerRadioButton=(RadioButton)findViewById(R.id.farmer_radio_button);
-        RadioButton expertRadioButton=(RadioButton)findViewById(R.id.expert_radio_button);
-        nameEditText = (EditText) findViewById(R.id.name_edit_text);
-        phoneEditText = (EditText) findViewById(R.id.phone_edit_text);
-        emailEditText = (EditText) findViewById(R.id.email_edit_text);
-        passwordEditText = (EditText) findViewById(R.id.password_edit_text);
-        rptPasswrdEditText = (EditText) findViewById(R.id.confirm_password_edit_text);
-        setSupportActionBar(toolbar);
-        setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        Button signUpButton=(Button)findViewById(R.id.sign_up_button);
-        signUpButton.setOnClickListener(onSignUp);
-        userTypeSharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        waitingDialog= (SpotsDialog) new SpotsDialog.Builder().setContext(this).setMessage("Registering...").build();
+        initializeView();
+        getFirebaseToken();
 
+    }
 
-        userTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+    private void initializeView() {
+
+        rootLayout = findViewById(R.id.register_root);
+        emailField= findViewById(R.id.email_sign_up);
+        nameField= findViewById(R.id.name_sign_up);
+        passwordField= findViewById(R.id.password_sign_up);
+        confirmPwdField= findViewById(R.id.confirm_password_sign_up);
+        districtField= findViewById(R.id.district_sign_up);
+        signUpBtn= findViewById(R.id.signup_join_button);
+        signUpBtn.setOnClickListener(this);
+        alreadySignUpLink= findViewById(R.id.alreadyJoin_signUp);
+        alreadySignUpLink.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.signup_join_button:
+                signUpUser();
+                break;
+            case R.id.alreadyJoin_signUp:
+                goToLoginActivity();
+            default:
+                break;
+        }
+
+    }
+
+    private void goToLoginActivity() {
+        startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+        finish();
+    }
+
+    private void signUpUser() {
+        getTextFromEditTexts();
+
+        if (TextUtils.isEmpty(email)){
+            emailField.setError("Email is required");
+        }
+
+       else if (TextUtils.isEmpty(name)){
+            nameField.setError("FirsName is Required");
+
+        }
+        else if (!name.isEmpty() &&name.length()<4){
+            nameField.setError("Name should be atleast 4 characters");
+        }
+
+        else    if (TextUtils.isEmpty(password)){
+            passwordField.setError("Password is required");
+        }
+        else   if (TextUtils.isEmpty(confirmPassword)){
+            confirmPwdField.setError("Confirm password is required");
+        }
+
+        else if (password.length()<6 ){
+            passwordField.setError("Password should be atleast 6 characters");
+        }
+        else   if (!password.equals(confirmPassword)){
+            confirmPwdField.setError("Passwords does not match");
+        }
+        else if (TextUtils.isEmpty(district)){
+            districtField.setError("District is Required");
+
+        }
+        else {
+
+            registerUser();
+        }
+
+    }
+
+    private void getTextFromEditTexts() {
+        name = nameField.getText().toString();
+        email = emailField.getText().toString();
+        password = passwordField.getText().toString();
+        confirmPassword = confirmPwdField.getText().toString();
+        district = districtField.getText().toString();
+    }
+
+   /* private void registerUser() {
+        waitingDialog.show();
+        Query query = databaseReference.orderByChild("email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-                RadioButton radioButton=(RadioButton)findViewById(i);
-                if(radioButton.getId()==R.id.farmer_radio_button){
-                    userType=radioButton.getText().toString();
-                }else{
-                    userType=radioButton.getText().toString();
-                }}
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+//                            mName.setText("");
+//                            mPhoneNumber.setText("");
+//                            mEmail.setText("");
+//                            mSemester.setText("");
+//                            mRollNo.setText("");
+//                            mPassword.setText("");
+//                            mConfirmPassword.setText("");
+                    waitingDialog.dismiss();
+                    Snackbar.make(rootLayout,"This User is already registered",Snackbar.LENGTH_LONG).show();
+                }
+                else {
+                    mAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            User signUpUser = new User(email,name,password,district,"","","");
+                            databaseReference.child(mAuth.getUid()).setValue(signUpUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    waitingDialog.dismiss();
+                                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                   // waitingDialog.dismiss();
+                                    Snackbar.make(rootLayout,""+e,Snackbar.LENGTH_SHORT).show();
+                                //    Log.d("error",""+e);
+                                    nameField.setText("");
+                                    emailField.setText("");
+                                    passwordField.setText("");
+                                    confirmPwdField.setText("");
+                                    districtField.setText("");
+
+                                }
+                            });
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                          //  waitingDialog.dismiss();
+                            nameField.setText("");
+                            emailField.setText("");
+                            passwordField.setText("");
+                            confirmPwdField.setText("");
+                            districtField.setText("");
+                            Snackbar.make(rootLayout,""+e.getMessage(),Snackbar.LENGTH_LONG).show();
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+              //  waitingDialog.dismiss();
+                Snackbar.make(rootLayout,"Something went wrong",Snackbar.LENGTH_LONG).show();
+
+            }
         });
 
 
+    }*/
+
+    private  void  registerUser(){
+        waitingDialog.show();
+        Retrofit retrofit = APIClient.getClient();
+        APIInterface apiInterface=retrofit.create(APIInterface.class);
+        sessionManager = SessionManager.getSessionManager(this);
+        User signUpUser = new User(email,name,"",password,district,"user",firebaseToken);
+        apiInterface.userSignLogin(signUpUser,sessionManager.getAuthTokenForSignUP()).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d("TAG", "onResponse: "+response);
+                waitingDialog.dismiss();
+                if(response.body() != null){
+                    sessionManager.saveConfigData(response.body());
+                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                if(response.errorBody().equals("User with this email already exists")){
+                    emailField.setError("User already exists");
+                    Snackbar.make(rootLayout,""+"User with this email already exists",Snackbar.LENGTH_LONG).show();
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                nameField.setText("");
+                emailField.setText("");
+                passwordField.setText("");
+                confirmPwdField.setText("");
+                districtField.setText("");
+                Snackbar.make(rootLayout,""+"Something went wrong",Snackbar.LENGTH_LONG).show();
+
+                Log.d("TAG", "onFailure: "+"fail");
+
+            }
+        });
+
 
     }
-     private View.OnClickListener onSignUp=new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             final SharedPreferences.Editor editor = userTypeSharedPreferences.edit();
-             Intent mainIntent = new Intent(view.getContext(), MainActivity.class);
-             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-             startActivity(mainIntent);
-      /*       nameEditText.setError(null);
-             emailEditText.setError(null);
-             phoneEditText.setError(null);
-             passwordEditText.setError(null);
-             rptPasswrdEditText.setError(null);
-             boolean error = false;
-             if (TextUtils.isEmpty(nameEditText.getText().toString())) {
-                 nameEditText.setError(getResources().getString(R.string.name_required));
-                 error = true;
-             }
-             if (TextUtils.isEmpty(phoneEditText.getText().toString())) {
-                 phoneEditText.setError(getResources().getString(R.string.phone_required));
-                 error = true;
-             } else if (!phoneEditText.getText().toString().trim().matches(Constants.REGEXP_PHONE)&& phoneEditText.getText().toString().trim().length()!=10) {
-                 phoneEditText.setError(getResources().getString(R.string.invalid_phone));
-                 error = true;
-             }
-             if (!TextUtils.isEmpty(emailEditText.getText().toString())) {
-                 if (!emailEditText.getText().toString().trim().matches(Constants.REGEXP_EMAIL)) {
-                     emailEditText.setError(getResources().getString(R.string.inavlid_email));
-                     error = true;
-                 }
-             }
-             if (TextUtils.isEmpty(passwordEditText.getText().toString())) {
-                 passwordEditText.setError(getResources().getString(R.string.password_required));
-                 error = true;
-             }
-             if (TextUtils.isEmpty(rptPasswrdEditText.getText().toString())) {
-                 rptPasswrdEditText.setError(getResources().getString(R.string.rpt_password_required));
-                 error = true;
-             }
-             if (!rptPasswrdEditText.getText().toString().matches(passwordEditText.getText().toString())) {
-                 rptPasswrdEditText.setError(getResources().getString(R.string.password_mismatch));
-                 error = true;
-             }
-             if (!error) {
-                 if(TextUtils.isEmpty(userType)||userType.equalsIgnoreCase(getResources().getString(R.string.farmer)))
-                     editor.putString("type",getResources().getString(R.string.farmer));
-                 else if(userType.equalsIgnoreCase(getResources().getString(R.string.expert)))
-                     editor.putString("type",getResources().getString(R.string.expert));
+    private  void getFirebaseToken(){
 
-                 editor.putString("phone",phoneEditText.getText().toString().trim());
-                 editor.putString("password",passwordEditText.getText().toString().trim());
-                 editor.putBoolean("login",true);
-                 editor.commit();
-                 Intent mainIntent = new Intent(view.getContext(), MainActivity.class);
-                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                 startActivity(mainIntent);
-             }*/
-         }
-     };
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                           // Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return super.onOptionsItemSelected(item);
+                        // Get new FCM registration token
+                        firebaseToken = task.getResult();
+
+
+                    }
+                });
+
     }
+
+
 }

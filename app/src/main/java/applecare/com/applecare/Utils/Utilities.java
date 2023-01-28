@@ -9,6 +9,13 @@ import android.graphics.drawable.Drawable;
 
 public   class Utilities {
 
+    public static int getDrawableId(Context context, String idName) throws Exception {
+        // throw new ArithmeticException("/ by zero");
+        // String id = idName + "_" + siteId;
+        int resID = context.getResources().getIdentifier(idName, "drawable", context.getPackageName());
+        return resID;
+    }
+
     public  static int getStringId(Context context, String titleName, String category) throws  Exception{
         // throw new ArithmeticException("/ by zero");
         String id =titleName+"_"+category;

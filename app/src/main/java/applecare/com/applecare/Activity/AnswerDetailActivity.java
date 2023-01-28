@@ -1,7 +1,6 @@
 package applecare.com.applecare.Activity;
 
 import android.os.Bundle;
-
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -15,12 +14,12 @@ import org.sufficientlysecure.htmltextview.HtmlTextView;
 import applecare.com.applecare.Fragment.Question;
 import applecare.com.applecare.R;
 
-public class HistoryDetailActivity extends AppCompatActivity {
+public class AnswerDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_detail);
+        setContentView(R.layout.activity_answer_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ImageView imageView=(ImageView) findViewById(R.id.htab_header);

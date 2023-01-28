@@ -18,19 +18,27 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+
+
 import applecare.com.applecare.Fragment.CameraFragment;
 import applecare.com.applecare.Fragment.FAQFragment;
 import applecare.com.applecare.Fragment.HistoryFragment;
+import applecare.com.applecare.Fragment.QuestionFragmentExpert;
+import applecare.com.applecare.Model.User;
 import applecare.com.applecare.R;
+import applecare.com.applecare.Utils.Constants;
+import applecare.com.applecare.network.SessionManager;
 
 
 public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
+    private TextView userNameTv;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigation;
@@ -39,29 +47,46 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     SharedPreferences userTypeSharedPreferences;
     public String MyPREFERENCES = "UserPrefs" ;
+
+    private  SessionManager sessionManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sessionManager=SessionManager.getSessionManager(this);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("");
+
+
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         setDrawerLayout();
+        setUserName();
+
+
+
+
+
         fragmentManager = getSupportFragmentManager();
         //load initial fragment
         loadFragment();
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder(); StrictMode.setVmPolicy(builder.build());
 
         userTypeSharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        if(userTypeSharedPreferences.getString("type","farmer").equalsIgnoreCase(getResources().getString(R.string.farmer))){
+        if( userTypeSharedPreferences.getString("type","farmer").equalsIgnoreCase(getResources().getString(R.string.farmer))){
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_farmer);
-        }else if(userTypeSharedPreferences.getString("type","").equalsIgnoreCase(getResources().getString(R.string.expert))) {
+            bottomNavigation.getMenu().findItem(R.id.action_faq).setChecked(true);
+
+        }else if( userTypeSharedPreferences.getString("type","").equalsIgnoreCase(getResources().getString(R.string.expert))) {
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_expert);
+            bottomNavigation.getMenu().findItem(R.id.action_questions).setChecked(true);
+
         }
-        bottomNavigation.getMenu().findItem(R.id.action_faq).setChecked(true);
         //set the bottom navigation item click listener
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -76,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_history:
                         fragment = new HistoryFragment();
                         break;
+                    case R.id.action_questions:
+                        fragment = new QuestionFragmentExpert();
+                        break;
+
+
                 }
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, fragment).commit();
@@ -102,9 +132,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.logout:
 
-                        final SharedPreferences.Editor editor = userTypeSharedPreferences.edit();
-                        editor.putBoolean("login",false);
-                        editor.commit();
+//                        final SharedPreferences.Editor editor = userTypeSharedPreferences.edit();
+//                        editor.putBoolean("login",false);
+//                        editor.commit();
+                        sessionManager.saveConfigData(null);
                         Intent loginIntent=new Intent(getBaseContext(),LoginActivity.class);
                         startActivity(loginIntent);
                         finish();
@@ -119,6 +150,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void setUserName() {
+        View headerView = navigationView.getHeaderView(0);
+        userNameTv = headerView.findViewById(R.id.user_name_drawer);
+        userNameTv.setText(sessionManager.getUser().getFirstName());
+
     }
 
     private void loadFragment() {

@@ -1,7 +1,6 @@
 package applecare.com.applecare.Fragment;
 
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import applecare.com.applecare.Adapter.HistoryRecyclerViewAdapter;
-import applecare.com.applecare.Model.QuestionHistory;
+import applecare.com.applecare.Adapter.QuestionExpertRecyclerViewAdapter;
 import applecare.com.applecare.R;
 import applecare.com.applecare.network.APIClient;
 import applecare.com.applecare.network.APIInterface;
@@ -30,12 +28,12 @@ import retrofit2.Retrofit;
  * Created by shabir on 03-03-2018.
  */
 
-public class HistoryFragment extends Fragment {
+public class QuestionFragmentExpert extends Fragment {
     private RecyclerView historyRecyclerView;
-    private HistoryRecyclerViewAdapter historyAdapter;
+    private QuestionExpertRecyclerViewAdapter historyAdapter;
     private TextView noQuestion;
     SpotsDialog waitingDialog ;
-    public HistoryFragment(){
+    public QuestionFragmentExpert(){
 
     }
 
@@ -65,7 +63,7 @@ public class HistoryFragment extends Fragment {
                       noQuestion.setVisibility(View.VISIBLE);
 
                   }else {
-                      historyAdapter=new HistoryRecyclerViewAdapter(getContext(),response.body());
+                      historyAdapter=new QuestionExpertRecyclerViewAdapter(getContext(),response.body());
                       historyRecyclerView.setAdapter(historyAdapter);
                       historyAdapter.notifyDataSetChanged();
                       noQuestion.setVisibility(View.GONE);
