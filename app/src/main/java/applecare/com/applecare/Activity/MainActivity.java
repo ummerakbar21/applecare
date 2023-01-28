@@ -1,6 +1,8 @@
 package applecare.com.applecare.Activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -61,8 +64,14 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("");
 
+//        navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        Menu nav_Menu = navigationView.getMenu();
+//        nav_Menu.findItem(R.id.nav_settings).setVisible(false);
+
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        Menu menu = navigationView.getMenu();
+        menu.findItem(R.id.notification).setVisible(!(sessionManager.getUser().getUserName().equalsIgnoreCase("user")));
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         setDrawerLayout();
@@ -77,14 +86,14 @@ public class MainActivity extends AppCompatActivity {
         loadFragment();
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder(); StrictMode.setVmPolicy(builder.build());
 
-        userTypeSharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        if( userTypeSharedPreferences.getString("type","farmer").equalsIgnoreCase(getResources().getString(R.string.farmer))){
+       // userTypeSharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        if( sessionManager.getUser().getUserType().equalsIgnoreCase(getResources().getString(R.string.farmer))){
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_farmer);
             bottomNavigation.getMenu().findItem(R.id.action_faq).setChecked(true);
 
-        }else if( userTypeSharedPreferences.getString("type","").equalsIgnoreCase(getResources().getString(R.string.expert))) {
+        }else if ( sessionManager.getUser().getUserType().equalsIgnoreCase(getResources().getString(R.string.expert))) {
             bottomNavigation.inflateMenu(R.menu.menu_bottom_naigation_expert);
-            bottomNavigation.getMenu().findItem(R.id.action_questions).setChecked(true);
+            bottomNavigation.getMenu().findItem(R.id.action_faq).setChecked(true);
 
         }
         //set the bottom navigation item click listener
@@ -101,9 +110,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_history:
                         fragment = new HistoryFragment();
                         break;
-                    case R.id.action_questions:
+                    case R.id.questions_answered:
+                        fragment = new HistoryFragment();
+
+                        break;
+                    case R.id.unanswered_questions:
                         fragment = new QuestionFragmentExpert();
                         break;
+
 
 
                 }
@@ -124,6 +138,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.home:
                         Toast.makeText(MainActivity.this, "home clicked", Toast.LENGTH_SHORT).show();
                         break;
+                    case R.id.notification:
+                        createAlert();
+                       // Toast.makeText(MainActivity.this, "home clicked", Toast.LENGTH_SHORT).show();
+                        break;
+
                     case R.id.settings:
                         Toast.makeText(MainActivity.this, "setting clicked", Toast.LENGTH_SHORT).show();
                         break;
@@ -207,5 +226,23 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         }else
         super.onBackPressed();
+    }
+    private void createAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                this);
+        builder.setTitle("Alert");
+        builder.setCancelable(false);
+        builder.setMessage("Expert can send notification from this, and that functionality will be implemented in soon");
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+
+                        //caputuredImageView.setImageDrawable(getResources().getDrawable(R.drawable.apple,null));
+
+                        //  Toast.makeText(getApplicationContext(),"Yes is clicked",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
     }
 }

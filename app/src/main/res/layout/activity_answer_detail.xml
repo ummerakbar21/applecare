@@ -41,7 +41,8 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_answer_detail" />
+    <include layout="@layout/content_answer_detail"
+        android:id="@+id/content_answer_detail"/>
 
 
 

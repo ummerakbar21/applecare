@@ -13,7 +13,7 @@
         android:visibility="gone"
         android:id="@+id/no_question"
         android:textSize="32sp"
-        android:text="You have not asked any question so far"
+        android:text="No Question is unanswered"
         >
 
     </TextView>

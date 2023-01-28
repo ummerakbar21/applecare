@@ -17,6 +17,33 @@ public class FAQItem implements Serializable{
     private List<Recommendation> recommendations;
     private String drawable;
     private  String localName;
+    private String symptom;
+    private String recommendation;
+
+    public String getSymptom() {
+        return symptom;
+    }
+
+    public void setSymptom(String symptom) {
+        this.symptom = symptom;
+    }
+
+    public String getRecommendation() {
+        return recommendation;
+    }
+
+    public void setRecommendation(String recommendation) {
+        this.recommendation = recommendation;
+    }
+
+    public FAQItem(String diseaseName, String symptom, String recommendation) {
+        this.diseaseName = diseaseName;
+        this.symptom = symptom;
+        this.recommendation = recommendation;
+    }
+
+    public FAQItem() {
+    }
 
     public FAQItem(Integer faqId, String diseaseName, String prevalenceTime, String drawable, String localName) {
         this.faqId=faqId;

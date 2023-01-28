@@ -40,7 +40,7 @@ public class FAQFragment extends Fragment {
 
     private List<FAQItem> getFaqList() {
 
-         faqItems = new ArrayList<FAQItem>();
+        faqItems = new ArrayList<FAQItem>();
         faqItems.add(new FAQItem(1,"Scab","Throughout the season","scab", "scab"));
         faqItems.add(new FAQItem(2,"Alternaria leaf spot","Late spring and early summer","alternaria_leaf_spot", "alternaria_leaf_spot"));
         faqItems.add(new FAQItem(3,"Marsonina leaf blotch","Summer","marsonian", "marsonina_leaf_blotch"));

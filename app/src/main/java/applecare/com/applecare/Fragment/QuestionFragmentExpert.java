@@ -55,7 +55,7 @@ public class QuestionFragmentExpert extends Fragment {
         Retrofit retrofit = APIClient.getClient();
         APIInterface apiInterface=retrofit.create(APIInterface.class);
         SessionManager sessionManager = SessionManager.getSessionManager(getActivity());
-          apiInterface.getQuestions(" Bearer "+sessionManager.getAccessToken()).enqueue(new Callback<List<Question>>() {
+          apiInterface.getQuestions(" Bearer "+sessionManager.getAccessToken(), "unanswered").enqueue(new Callback<List<Question>>() {
               @Override
               public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
                   waitingDialog.dismiss();

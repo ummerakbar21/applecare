@@ -35,6 +35,8 @@ public class HistoryFragment extends Fragment {
     private HistoryRecyclerViewAdapter historyAdapter;
     private TextView noQuestion;
     SpotsDialog waitingDialog ;
+    private Callback<List<Question>> callback;
+
     public HistoryFragment(){
 
     }
@@ -57,12 +59,20 @@ public class HistoryFragment extends Fragment {
         Retrofit retrofit = APIClient.getClient();
         APIInterface apiInterface=retrofit.create(APIInterface.class);
         SessionManager sessionManager = SessionManager.getSessionManager(getActivity());
-          apiInterface.getQuestions(" Bearer "+sessionManager.getAccessToken()).enqueue(new Callback<List<Question>>() {
+
+
+              callback =      new Callback<List<Question>>() {
               @Override
               public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
                   waitingDialog.dismiss();
                   if(response.body()==null || response.body().size()==0){
                       noQuestion.setVisibility(View.VISIBLE);
+                      if(sessionManager.getUser().getUserType().equalsIgnoreCase("user")){
+                          noQuestion.setText("You have not asked any question so far");
+
+                      }else {
+                          noQuestion.setText("No question is answered yet");
+                      }
 
                   }else {
                       historyAdapter=new HistoryRecyclerViewAdapter(getContext(),response.body());
@@ -81,8 +91,13 @@ public class HistoryFragment extends Fragment {
                   waitingDialog.dismiss();
 
               }
-          });
+          };
 
+        if (sessionManager.getUser().getUserType().equalsIgnoreCase("user")){
+            apiInterface.getQuestions(" Bearer "+sessionManager.getAccessToken()).enqueue(callback);
+        }else {
+            apiInterface.getQuestions(" Bearer "+sessionManager.getAccessToken(), "answered").enqueue(callback);
+        }
        // List<QuestionHistory> allItems = new ArrayList<QuestionHistory>();
         //
 

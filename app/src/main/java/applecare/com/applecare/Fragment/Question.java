@@ -10,8 +10,11 @@ public class Question  implements Serializable {
     private String author;
     private String photo;
     private String thumbnail;
+    @SerializedName("is_answered")
     private boolean isAnswered;
     private String title;
+    @SerializedName("added_on")
+    private String addedOn;
     @SerializedName("answer_count")
     private int answerCount;
 
@@ -56,6 +59,10 @@ public class Question  implements Serializable {
 
     public int getAnswerCount() {
         return answerCount;
+    }
+
+    public String getAddedOn() {
+        return addedOn;
     }
 }
 

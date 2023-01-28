@@ -1,0 +1,43 @@
+[
+  {
+    "name": "Scub",
+    "symptom": "Primary infection on lower surface of leaves . Spots develop as olivaceous and turn dark brown to black and become  velvety, may coalesce to cover the whole surface.\n     Secondary infection occurs on upper surface and leaves become twisted or puckered with black circular spots.\n    Fruits show small, black ,circular lesions on their skin both on trees as well as after cold storage. Entire fruit surface is susceptible to infection but infections early in the season generally cluster around the calyx end. Late summer or early fall may not be visible till storage, leading to pin point scab.",
+    "recommendation": "Choices: Dodine/Difenconazol/ Trifloxystrobin+Tebuconazol /Mancozeb/Captan"
+  },
+  {
+    "name": "alternaria leaf spot",
+    "symptom": "Spots are 1/8 to ¼ inches in diameter, round, brown and occasionally purple border. Some spots are grayish brown.\nMost of them undergo secondary enlargement and become irregular and more darker, acquiring frogeye appearance.\nInfection on petioles leads to 50% defoliation\nFruit infection results in small, dark, raised pimple like lesions associated  with lenticels (often resembles lenticels blotch)",
+    "recommendation": "Difenconazol/ Flusilazol/ Trifloxystrobin+Tebuconazol / Tebuconazol"
+  },
+  {
+    "name": "Marsonina leaf blotch",
+    "symptom": "Occurs on mature leaves\n5-10mm grayish brown spots often tinged purple at the periphery -Small black acervuli are visible on the leaf surface\n-Later lesions coalesce and form large dark brown blotches and leaves turn yellow.\n-Severe defoliation results in failure of crop in the following year.",
+    "recommendation": "Difenconazol/ Flusilazol/Trifloxystrobin+Tebuconazol/ Tebuconazol/ Mancozb +carbendazim"
+  },
+  {
+    "name": "Powdery mildew",
+    "symptom": "Small patches of white or grey powdry masses on under surface of leaves -Leaves grow longer and narrower and margins are curled(longitudinal folding)\nTwigs covered with powdry mass.",
+    "recommendation": "Mancozeb+carbendazim /captan/Zineb+hexaconazol"
+  },
+  {
+    "name": "Sooty blotch lyspeck",
+    "symptom": "Sooty or cloudy blotches on leaf surface which are olive green with indefinite outline.\n-The smudge occurs on outer surface of cuticle mostly .only in rare cases penetrates the cuticle\nFly speck: Raised Black and shiny round dots that resemble fly excreta (Groups of Few to 50 dots). The blemish can be removed by vigorous rubbing or bleaching.\nBoth diseases can occur on the same fruit",
+    "recommendation": "Mancozeb/ Zineb/ Ziram/ Propineb/Captan"
+  },
+  {
+    "name": "black rot",
+    "symptom": "Small ,purple specks on upper leaf surface.\n-Sepal infection leads to BER(Blossom end rot)\n-Margin remains purple, while center turns tan to brown\n-Black spots with red halo\n-Lesions are firm and sunken\n-Chlorosis and defoliation\n-Later series of black to brown concentric bands appear\n-Flesh of rotted area remains firm and leathery\n-Black dots of fungus are seen on infected fruit.\n-Later it leads to limb canker.\n-Rot around seed cavity or core.\n-Fruits ripen early (3-6 weeks).\nLower 75cm of trunk\n-Mostly at the junction of lateral roots with trunk\n-Brown bark and becomes soft and mushy or slimy\n-Dark streaks at cambium and extend beyond canker margin\n-Sreads both horizontally and vertically\n-Girdling of limbs, roots or trunk and finally death of the affected tree.",
+    "recommendation": "Captan/ Mancozeb + Carbendizm/ Capatan + Hexacoanzol"
+  },
+  {
+    "name": "Core rot",
+    "symptom": "Rot around seed cavity or core.\n-Fruits ripen early (3-6 weeks).",
+    "recommendation": "Captan/ Mancozeb + Carbendizm/ Capatan + Hexacoanzol"
+  },
+  {
+    "name": "Collar rot",
+    "symptom": "Lower 75cm of trunk",
+    "recommendation": "Avoid saturation of soil"
+  }
+
+]

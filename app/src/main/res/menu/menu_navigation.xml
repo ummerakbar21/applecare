@@ -4,18 +4,21 @@
             android:id="@+id/home"
             android:title="Home"
             android:checked="false"
+            android:visible="false"
             android:icon="@android:drawable/ic_menu_gallery"
             />
         <item
             android:id="@+id/settings"
             android:checked="false"
             android:title="Settings"
+            android:visible="false"
             android:icon="@android:drawable/ic_menu_manage"
             />
         <item
             android:id="@+id/trash"
             android:title="Trash"
             android:checked="false"
+            android:visible="false"
             android:icon="@android:drawable/ic_menu_delete"
             />
         <item
@@ -24,7 +27,14 @@
             android:checked="false"
             android:icon="@android:drawable/ic_menu_close_clear_cancel"
             />
-        <item android:title="@string/sub_menu">
+    <item
+        android:id="@+id/notification"
+        android:checked="false"
+        android:title="Notification"
+        android:icon="@android:drawable/ic_menu_manage"
+        />
+        <item android:title="@string/sub_menu"
+            android:visible="false">
             <menu>
                 <!--<group
                     android:id="@+id/nav_main_content"

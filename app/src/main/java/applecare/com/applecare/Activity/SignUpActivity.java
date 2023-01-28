@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,7 +24,6 @@ import applecare.com.applecare.Model.User;
 import applecare.com.applecare.R;
 import applecare.com.applecare.network.APIClient;
 import applecare.com.applecare.network.APIInterface;
-import applecare.com.applecare.network.RetrofitCallback;
 import applecare.com.applecare.network.SessionManager;
 import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
@@ -37,7 +34,7 @@ import retrofit2.Retrofit;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
     private ConstraintLayout rootLayout;
-    private TextInputEditText emailField;
+    private TextInputEditText mobileField;
     private TextInputEditText nameField;
     private TextInputEditText passwordField;
     private TextInputEditText confirmPwdField;
@@ -45,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private Button signUpBtn;
     private TextView alreadySignUpLink;
     private String name;
-    private String email;
+    private String mobileNumber;
     private String password;
     private String confirmPassword;
 
@@ -68,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void initializeView() {
 
         rootLayout = findViewById(R.id.register_root);
-        emailField= findViewById(R.id.email_sign_up);
+        mobileField = findViewById(R.id.mobile_sign_up);
         nameField= findViewById(R.id.name_sign_up);
         passwordField= findViewById(R.id.password_sign_up);
         confirmPwdField= findViewById(R.id.confirm_password_sign_up);
@@ -101,8 +98,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void signUpUser() {
         getTextFromEditTexts();
 
-        if (TextUtils.isEmpty(email)){
-            emailField.setError("Email is required");
+        if (TextUtils.isEmpty(mobileNumber)){
+            mobileField.setError("Mobile number is required");
         }
 
        else if (TextUtils.isEmpty(name)){
@@ -139,7 +136,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void getTextFromEditTexts() {
         name = nameField.getText().toString();
-        email = emailField.getText().toString();
+        mobileNumber = mobileField.getText().toString();
         password = passwordField.getText().toString();
         confirmPassword = confirmPwdField.getText().toString();
         district = districtField.getText().toString();
@@ -223,7 +220,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Retrofit retrofit = APIClient.getClient();
         APIInterface apiInterface=retrofit.create(APIInterface.class);
         sessionManager = SessionManager.getSessionManager(this);
-        User signUpUser = new User(email,name,"",password,district,"user",firebaseToken);
+        User signUpUser = new User(mobileNumber,name,"",password,district,"user",firebaseToken);
         apiInterface.userSignLogin(signUpUser,sessionManager.getAuthTokenForSignUP()).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -236,7 +233,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     finish();
                 }
                 if(response.errorBody().equals("User with this email already exists")){
-                    emailField.setError("User already exists");
+                    mobileField.setError("User already exists");
                     Snackbar.make(rootLayout,""+"User with this email already exists",Snackbar.LENGTH_LONG).show();
 
 
@@ -248,7 +245,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 nameField.setText("");
-                emailField.setText("");
+                mobileField.setText("");
                 passwordField.setText("");
                 confirmPwdField.setText("");
                 districtField.setText("");
